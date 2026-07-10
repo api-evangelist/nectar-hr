@@ -1,0 +1,84 @@
+aid: nectar-hr
+name: Nectar
+review:
+  question: Does Nectar expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-10'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Nectar's public surface is the Nectar
+    Public API (base https://api.nectarhr.com, OpenAPI 3.0.0 at /swagger.yaml,
+    Swagger UI at /docs) - a request/response REST API authenticated with a
+    Bearer (JWT) API key. There is no server-push transport (WebSocket or SSE)
+    documented on Nectar's API to model. Consumers read the recognition feed
+    and redemption analytics by polling REST endpoints; there is no realtime
+    channel.
+findings:
+  summary: |
+    Nectar does not publish a documented public WebSocket API. Nectar is an
+    employee recognition and rewards platform. It exposes a documented Open API
+    (title "Nectar Public API", version 0.1.0, OpenAPI 3.0.0) at base
+    https://api.nectarhr.com, with Swagger UI at /docs and the raw definition
+    at /swagger.yaml. Every endpoint requires an API key sent as
+    "Authorization: Bearer <apiKey>" (JWT). The API is an account add-on -
+    access is enabled by Nectar support / the account manager, after which an
+    admin generates a single scoped API key (optional expiration) under
+    Settings > Integrations. The published surface covers users (list, get,
+    upsert up to 50), the company recognition feed, custom awards (list and
+    send), financial redemption analytics, and Flow enrollment triggers, plus
+    a health check. All of it is request/response REST over HTTPS. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented anywhere in Nectar's API.
+  accessModel: |
+    The API documentation and OpenAPI definition are publicly viewable, but
+    live access is gated: it must be added to the customer's plan by Nectar,
+    and if the Integrations > API settings are not visible the feature is not
+    included in the current plan. Authentication is a single per-account API
+    key with selectable scopes generated in the Nectar app. Nectar notes it
+    provides limited ongoing support beyond issuing the key.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.nectarhr.com
+      documented: true
+      note: Nectar Public API, OpenAPI 3.0.0 at /swagger.yaml, Swagger UI at /docs. Bearer JWT API key.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Nectar's Public API as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://api.nectarhr.com/v1/users
+    - GET  https://api.nectarhr.com/v1/users/{userId}
+    - PUT  https://api.nectarhr.com/v1/users
+    - GET  https://api.nectarhr.com/v1/recognition/feed
+    - GET  https://api.nectarhr.com/v1/custom-awards
+    - POST https://api.nectarhr.com/v1/custom-awards/send
+    - GET  https://api.nectarhr.com/v1/analytics/financial/redemptions
+    - POST https://api.nectarhr.com/v1/flows/trigger/{triggerId}
+    - GET  https://api.nectarhr.com/health
+  endpointsModeled: false
+sources:
+  - url: https://api.nectarhr.com/docs
+    type: APIReference
+    note: Swagger UI for the Nectar Public API. Bearer JWT auth; all REST. No WebSocket.
+  - url: https://api.nectarhr.com/swagger.yaml
+    type: OpenAPI
+    note: Raw OpenAPI 3.0.0 definition (title "Nectar Public API", version 0.1.0) with all confirmed paths.
+  - url: https://help.nectarhr.com/en/articles/10770969-open-api
+    type: Documentation
+    note: How to request access and generate a scoped API key; endpoints listed (users, custom awards, financial reports, home feed); max 50 concurrent calls; add-on feature.
+  - url: https://help.nectarhr.com/en/collections/12483421-open-api
+    type: Documentation
+    note: Nectar Help Center Open API collection.
+  - url: https://nectarhr.com/pricing
+    type: Plans
+    note: Recognize plans; API access is a plan-gated add-on.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Nectar's public API is
+    request/response REST (OpenAPI 3.0.0) authenticated with a Bearer JWT API
+    key. No AsyncAPI document was created because there is no server-push or
+    streaming transport on Nectar's API to model.

@@ -1,0 +1,93 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Nectar
+providerId: nectar-hr
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Employee Recognition
+- Rewards
+- HR
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Nectar spend. Nectar's Recognize platform is a per-employee
+  monthly subscription (billed annually) with a published annual minimum, sold
+  in Plus and Premium tiers plus custom Enterprise. On top of the subscription,
+  the dominant variable cost is rewards redemption - points employees redeem
+  against the global rewards catalog (gift cards, Amazon, swag, custom company
+  rewards) become real spend, which the API surfaces via the financial
+  redemptions report. The Open API itself is a plan-gated add-on rather than a
+  metered, usage-billed product.
+notes: >-
+  Per-user rates ($5 Plus / $6 Premium, annual) are third-party reported and
+  unreconciled; verify with Nectar sales. Track redemption spend as the primary
+  variable cost driver via GET /v1/analytics/financial/redemptions.
+sources:
+- https://nectarhr.com/pricing
+- https://help.nectarhr.com/en/articles/10770969-open-api
+- https://api.nectarhr.com/docs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Nectar
+serviceCategory: HR and Employee Recognition
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Nectar Recognize
+  ServiceCategory: HR and Employee Recognition
+  ProviderName: Nectar
+  PublisherName: Nectar
+  InvoiceIssuerName: Nectar
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: seats
+  description: Active employees on the Nectar plan, billed per employee per month (annual).
+  unit: seats
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: reward_redemptions
+  description: Reward redemptions made by users against the rewards catalog; the primary variable spend, reported via the financial redemptions endpoint.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - user
+  - period
+- name: points_awarded
+  description: Points issued through recognition and custom awards, which convert to redeemable reward value.
+  unit: points
+  aggregation: sum
+  dimensions:
+  - account
+  - award
+principles:
+- name: Visibility
+  description: Pull GET /v1/analytics/financial/redemptions on a monthly cadence to see reward redemption spend by user and period alongside the per-seat subscription.
+- name: Allocation
+  description: Attribute redemption and points spend to departments/teams using user department and office_location attributes from the Users API.
+- name: Optimization
+  description: Right-size seat counts against active users, tune custom-award point values, and reconcile the annual minimum against actual redemption to avoid unused budget.
+- name: Accountability
+  description: Assign an owner for the recognition budget; review redemption reports and points issuance against plan minimums each period.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

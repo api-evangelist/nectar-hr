@@ -1,0 +1,74 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Nectar
+providerId: nectar-hr
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Employee Recognition
+- HR
+- Rate Limiting
+- Quotas
+description: >-
+  Nectar's Open API documents a concurrency limit rather than a published
+  per-minute request quota - a maximum of 50 concurrent calls per account.
+  Several endpoints also impose payload/pagination caps: the user upsert
+  endpoint (PUT /v1/users) accepts up to 50 users per request, list and feed
+  endpoints are cursor-paginated (users default/limit-bounded, custom awards
+  default 25 per page), and the financial redemptions report caps its date
+  span at one year. A single API key is issued per account, with selectable
+  scopes and an optional expiration.
+notes: >-
+  No fixed numeric per-minute or per-day request-rate limit is published for
+  the Nectar Public API as of the review date; the documented control is the
+  50-concurrent-call ceiling plus per-endpoint batch/pagination caps. Confirm
+  current limits with Nectar support during reconciliation.
+sources:
+- https://api.nectarhr.com/docs
+- https://api.nectarhr.com/swagger.yaml
+- https://help.nectarhr.com/en/articles/10770969-open-api
+responseCodes:
+  throttled: 429
+limits:
+- name: Concurrent Calls
+  scope: account
+  metric: concurrent-requests
+  limit: 50
+  notes: Documented maximum of 50 concurrent API calls per account.
+- name: Request Rate
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric per-minute or per-day request-rate limit is documented.
+- name: User Upsert Batch
+  scope: request
+  metric: users
+  limit: 50
+  notes: PUT /v1/users upserts up to 50 users per request (matched on nectar_id, email, or employee_id).
+- name: Custom Awards Page Size
+  scope: request
+  metric: items
+  limit: 25 (default)
+  notes: GET /v1/custom-awards returns a page defaulting to 25 items.
+- name: Redemptions Report Span
+  scope: request
+  metric: days
+  limit: 365
+  notes: GET /v1/analytics/financial/redemptions date range cannot span more than one year.
+- name: API Keys
+  scope: account
+  metric: keys
+  limit: 1
+  notes: One scoped API key per account, generated in Settings > Integrations, with optional expiration.
+policies:
+- name: Authentication
+  description: 'Every endpoint requires an Authorization: Bearer <apiKey> (JWT) header; access is a plan-gated add-on enabled by Nectar.'
+- name: Cursor Pagination
+  description: List and feed endpoints use cursor-based pagination; follow the returned cursor rather than issuing large single requests.
+- name: Backoff Strategy
+  description: Clients should stay under the 50-concurrent-call ceiling and implement exponential backoff with jitter, honoring Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

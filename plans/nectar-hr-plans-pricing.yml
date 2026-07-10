@@ -1,0 +1,130 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Nectar
+providerId: nectar-hr
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Employee Recognition
+- Rewards
+- HR
+- Plans
+description: >-
+  Nectar's Recognize product is sold per employee per month (billed annually),
+  with a published minimum annual commitment. Third-party pricing pages report a
+  Plus tier at roughly $5 per employee/month and a Premium tier at roughly $6
+  per employee/month (annual billing), plus a custom Enterprise tier; Nectar's
+  own pricing page is quote-based ("Get pricing"). The Open API is not a
+  standalone priced product - it is an add-on that must be enabled on your
+  Nectar plan by support / your account manager. If the Settings > Integrations
+  API section is not visible, API access is not included in the current plan.
+notes: >-
+  The $5 / $6 per-user figures are from third-party review/pricing aggregators,
+  not a Nectar-published rate card, so they are marked unreconciled. Verify
+  current tiers, the annual minimum, and whether Open API access carries an
+  incremental fee directly with Nectar sales during reconciliation. Nectar also
+  sells Comms, Engage, and a bundled Culture Suite; those are out of scope here.
+sources:
+- https://nectarhr.com/pricing
+- https://help.nectarhr.com/en/articles/10770969-open-api
+- https://www.selectsoftwarereviews.com/reviews/nectar
+plans:
+- id: nectar-plus
+  name: Plus
+  type: subscription
+  description: >-
+    Core recognition tier - peer-to-peer and manager-to-employee recognition,
+    HRIS and SSO integrations, recognition automation for birthdays and work
+    anniversaries, and a dedicated account manager. Reported at about $5 per
+    employee per month billed annually (unreconciled).
+  entries:
+  - label: Per Employee
+    name: plus_per_user
+    type: subscription
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$5 per employee/month, billed annually (third-party reported; unreconciled)
+    userMultiplied: true
+  elements:
+  - name: Peer-to-Peer Recognition
+  - name: Manager Recognition
+  - name: HRIS and SSO Integrations
+  - name: Recognition Automation
+  - name: Dedicated Account Manager
+- id: nectar-premium
+  name: Premium
+  type: subscription
+  description: >-
+    Everything in Plus plus a nominations program, swag store, reward cards,
+    and multi-language support. Reported at about $6 per employee per month
+    billed annually (unreconciled).
+  entries:
+  - label: Per Employee
+    name: premium_per_user
+    type: subscription
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$6 per employee/month, billed annually (third-party reported; unreconciled)
+    userMultiplied: true
+  elements:
+  - name: Everything in Plus
+  - name: Nominations Program
+  - name: Swag Store
+  - name: Reward Cards
+  - name: Multi-Language Support
+- id: nectar-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom pricing for larger organizations - negotiated terms, security
+    review, and tailored configuration. Contact Nectar sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Security Review
+  - name: Tailored Configuration
+- id: nectar-open-api-addon
+  name: Open API Access (Add-On)
+  type: addon
+  description: >-
+    Programmatic access to the Nectar Public API (users, recognition feed,
+    custom awards, financial redemption analytics, Flow triggers). Access is
+    enabled on your plan by Nectar support / your account manager, then an
+    admin generates a scoped API key under Settings > Integrations. Any
+    incremental fee is not publicly published.
+  entries:
+  - label: API Access
+    name: open_api_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: plan-gated add-on; contact account manager (fee not published)
+    userMultiplied: false
+  elements:
+  - name: Bearer (JWT) API Key
+  - name: Selectable Scopes
+  - name: Users, Recognition, Awards, Analytics, Flows Endpoints
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

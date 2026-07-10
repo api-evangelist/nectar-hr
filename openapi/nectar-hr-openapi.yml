@@ -1,0 +1,1283 @@
+openapi: 3.0.0
+info:
+  title: Nectar Public API
+  version: 0.1.0
+  description: >
+    Welcome to the Nectar Public API. Here you can view and test the provided
+    endpoints before integrating them into
+
+    your automated systems/tools.
+
+
+    After requesting access to the API through support, you can generate your
+    API key from the integrations tab in Nectar.
+
+
+    You can access the [Swagger Definition here](/swagger.yaml).
+
+
+    ### Authentication
+
+
+    All endpoints require an API Key. Be sure to set the `Authorization` header
+    key to `Bearer <yourAPIKey>`
+  contact:
+    name: Nectar Support
+    url: https://nectarhr.com/contact-us
+servers:
+  - url: https://api.nectarhr.com
+    description: Nectar API Documentation
+components:
+  schemas:
+    BaseUser:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+              format: email
+            employee_id:
+              type: string
+              nullable: true
+            first_name:
+              type: string
+            last_name:
+              type: string
+            username:
+              type: string
+            phone_number:
+              type: string
+              example: 123-456-7890
+              nullable: true
+            department:
+              type: string
+              nullable: true
+            office_location:
+              type: string
+              nullable: true
+            job_title:
+              type: string
+              nullable: true
+            language:
+              type: string
+              nullable: true
+            active:
+              type: boolean
+            invite_email_sent:
+              type: boolean
+              description: >-
+                Indicates whether an invite email was sent for this user during
+                this request. Only present in PUT responses. Returns true when
+                the send_invites query parameter is present and user_invited is
+                true in the request body for this user.
+        - $ref: '#/components/schemas/Links'
+    CompanyRedemptions:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            meta:
+              type: object
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                endDate:
+                  type: string
+                  format: date
+                total:
+                  type: string
+            financialRedemptionReport:
+              type: array
+              items:
+                type: object
+                properties:
+                  gift_card_redemptions:
+                    type: string
+                  swag_redemptions:
+                    type: string
+                  amazon_redemptions:
+                    type: object
+                    properties:
+                      US:
+                        type: string
+                      UK:
+                        type: string
+                      CA:
+                        type: string
+                  user:
+                    anyOf:
+                      - $ref: '#/components/schemas/BaseUser'
+                      - $ref: '#/components/schemas/ExpandedUser'
+    CustomAwardsBody:
+      type: object
+      description: >-
+        Request body for sending custom awards. Either `recipientUuids`,
+        `recipientEmails`, or both must be provided.
+      required:
+        - awardUuid
+      properties:
+        awardUuid:
+          type: string
+          description: UUID of the custom award template to send (required)
+        recipientUuids:
+          type: array
+          description: >-
+            Array of recipient user UUIDs. Required if `recipientEmails` is not
+            provided.
+          items:
+            type: string
+        recipientEmails:
+          type: array
+          description: >-
+            Array of recipient user emails. Required if `recipientUuids` is not
+            provided.
+          items:
+            type: string
+        message:
+          type: string
+          description: Optional personal message to include with the award.
+        points:
+          type: number
+          description: Optional point value to include with the award (must be positive).
+      anyOf:
+        - required:
+            - recipientEmails
+        - required:
+            - recipientUuids
+    CustomAwardsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            awards:
+              type: array
+              items:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  name:
+                    type: string
+                  points:
+                    type: number
+                    nullable: true
+                  message:
+                    type: string
+                  fixed_points:
+                    type: boolean
+    Expand:
+      type: string
+      enum:
+        - user
+        - shoutout
+    ExpandedUser:
+      allOf:
+        - $ref: '#/components/schemas/BaseUser'
+        - type: object
+          properties:
+            user_role:
+              type: string
+              enum:
+                - Administrator
+                - Manager
+                - Employee
+            preferred_name:
+              type: string
+              nullable: true
+            birth_date:
+              type: string
+              nullable: true
+            hire_date:
+              type: string
+              format: date
+              nullable: true
+            inactive_date:
+              type: string
+              format: date
+              nullable: true
+            user_invited:
+              type: boolean
+            user_onboarded:
+              type: boolean
+            manager_email:
+              type: string
+              format: email
+              nullable: true
+            workspaces:
+              type: array
+              items:
+                type: string
+            giveable_points:
+              type: number
+            redeemable_points:
+              type: number
+            logged_in_once:
+              type: boolean
+            custom_properties:
+              type: object
+              additionalProperties: true
+              example:
+                custom_property_1: string
+    FailedResponse:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            status:
+              type: string
+              default: failure
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                code:
+                  type: string
+                  enum:
+                    - N0001
+                    - N0002
+                    - N0003
+                    - N1001
+                    - N1002
+                    - N1003
+    FlowsTriggerBody:
+      type: object
+      description: Request body for triggering a Flow. Provide either emails or userIds.
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: List of user emails to enroll in the Flow
+        userIds:
+          type: array
+          items:
+            type: string
+          description: List of user IDs to enroll in the Flow
+      anyOf:
+        - required:
+            - emails
+        - required:
+            - userIds
+    FlowsTriggerResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            flowId:
+              type: string
+            triggerId:
+              type: string
+            enrolledCount:
+              type: number
+              description: Number of users successfully enrolled in the flow
+            enrolledUserIds:
+              type: array
+              items:
+                type: string
+              description: UUIDs of users successfully enrolled
+            skippedCount:
+              type: number
+              description: >-
+                Number of users skipped because they are already enrolled in
+                this flow
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    NectarErrorCodes:
+      oneOf:
+        - type: object
+          properties:
+            N0001:
+              type: string
+              description: Unknown Error
+        - type: object
+          properties:
+            N0002:
+              type: string
+              description: Invalid API Key
+        - type: object
+          properties:
+            N1003:
+              type: string
+              description: Invalid Query Parameters
+        - type: object
+          properties:
+            N1004:
+              type: string
+              description: Invalid Body
+    PageInfo:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            pageInfo:
+              type: object
+              properties:
+                page:
+                  type: number
+                pageSize:
+                  type: number
+                total:
+                  type: number
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - failure
+    Shoutout:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          anyOf:
+            - $ref: '#/components/schemas/BaseUser'
+            - $ref: '#/components/schemas/ExpandedUser'
+        receivers:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BaseUser'
+              - $ref: '#/components/schemas/ExpandedUser'
+        message:
+          type: string
+        amount:
+          type: number
+        core_values:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              sender:
+                anyOf:
+                  - $ref: '#/components/schemas/BaseUser'
+                  - $ref: '#/components/schemas/ExpandedUser'
+                  - type: string
+              message:
+                type: string
+              reactions:
+                type: string
+        private:
+          type: boolean
+        image_url:
+          type: string
+        reactions:
+          type: array
+          items:
+            type: object
+            properties:
+              reaction:
+                type: string
+              user:
+                anyOf:
+                  - $ref: '#/components/schemas/BaseUser'
+                  - $ref: '#/components/schemas/ExpandedUser'
+        scoring_type:
+          type: string
+          enum:
+            - openAI
+            - simple
+        score:
+          type: number
+        action:
+          type: array
+          items:
+            type: string
+            enum:
+              - Admin Added Giveable Points
+              - Admin Added Redeemable Points
+              - Admin Added Swag Points
+              - Anniversary Bonus
+              - Approved Claimable Award
+              - Birthday Bonus
+              - Redeemable to Giveable Point Conversion
+              - Challenge Approved
+              - Community Recognition
+              - Custom Award Redemption
+              - Employee Giveable Point Reset
+              - Employee Giveable Point Top Off
+              - Gave Points
+              - Manager Giveable Point Reset
+              - Manager Giveable Point Top Off
+              - Initial Redeemable Points
+              - Nomination Post
+              - Nomination Response Post
+              - Setup Bonus
+              - Welcome Bonus
+        type:
+          type: string
+          enum:
+            - nomination_post
+            - nomination_response
+            - birthday
+            - anniversary
+            - award
+            - challenge
+            - welcome
+            - setup
+            - shoutout
+            - community_recognition
+    ShoutoutsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            meta:
+              type: object
+              properties:
+                total:
+                  type: integer
+                start_date:
+                  type: string
+                  format: date-time
+                end_date:
+                  type: string
+                  format: date-time
+                cursor:
+                  type: number
+                  nullable: true
+            feed:
+              type: array
+              items:
+                $ref: '#/components/schemas/Shoutout'
+    SuccessfulResponse:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - success
+            links:
+              $ref: '#/components/schemas/Links'
+    UserDetailsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user:
+              allOf:
+                - anyOf:
+                    - $ref: '#/components/schemas/BaseUser'
+                    - $ref: '#/components/schemas/ExpandedUser'
+    UserUpsertBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        nectar_id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        employee_id:
+          type: string
+        department:
+          type: string
+          nullable: true
+        office_location:
+          type: string
+          nullable: true
+        job_title:
+          type: string
+          nullable: true
+        active:
+          type: boolean
+        phone_number:
+          type: string
+          example: 123-456-7890
+          nullable: true
+        inactive_date:
+          type: string
+          format: date
+          nullable: true
+        hire_date:
+          type: string
+          format: date
+          nullable: true
+        birth_date:
+          type: string
+          format: date
+          nullable: true
+        preferred_name:
+          type: string
+          nullable: true
+        manager_email:
+          type: string
+          format: email
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum:
+            - Administrator
+            - Manager
+            - Employee
+          description: >-
+            Nectar platform permission role. This controls access permissions
+            within Nectar, not the user's company or HRIS role. Administrator:
+            full admin access (also grants Manager permissions). Manager:
+            receives a manager-level point allowance and can access analytics
+            for direct reports. Employee: standard user with an employee-level
+            point allowance. Warning: sending this field on an update will
+            overwrite the user's existing role. Omit this field to preserve the
+            current role.
+        custom_properties:
+          type: object
+          additionalProperties: true
+          example:
+            custom_property_1: string
+            custom_property_2: 1
+            custom_property_3: true
+            custom_property_4: null
+        user_invited:
+          type: boolean
+          description: >-
+            Set to true to mark the user as invited. Can only be set to true
+            (setting to false will return an error). When combined with the
+            send_invites query parameter, an invite email will be sent to the
+            user. Without send_invites, the user will be marked as invited in
+            the database but no email will be sent.
+    UserUpsertRequestBody:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserUpsertBody'
+    UsersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            total:
+              type: integer
+            users:
+              type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/BaseUser'
+                  - $ref: '#/components/schemas/ExpandedUser'
+            warnings:
+              type: array
+              description: >-
+                Non-fatal issues detected while processing the request (e.g.,
+                duplicate email, employee_id, or phone_number values within the
+                batch). The request still succeeds, but affected users may have
+                been skipped or had fields stripped. Review these to reconcile
+                your source data.
+              items:
+                type: string
+  responses:
+    BadRequest:
+      description: >-
+        `BAD REQUEST`: Body or Query Params are malformed (missing, extra, or
+        invalid values)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    Forbidden:
+      description: >-
+        `FORBIDDEN`: Request was authenticated but the resource requested is
+        missing or not accessible with that key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
+    InternalServerError:
+      description: >-
+        `INTERNAL SERVER ERROR`: Request was unable to be processed due to a
+        server error. Contact our support team.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - BearerAuth: []
+paths:
+  /v1/analytics/financial/redemptions:
+    get:
+      summary: Generates a summary of redemptions made by all users.
+      description: |-
+        Date rules:
+        <ul>
+          <li>If you do not specify a start or end date, it will generate a report of the first of the current month to present.</li>
+          <li>If you specify a start date and an end date, they cannot span more than a year.</li>
+          <li>If you specify a start date without an end date, it will fetch either a month from start date, or the current day. Whichever is less.</li>
+          <li>If you specify an end date without a start date, it will error.</li>
+        </ul>
+        All requests will include the applied start and end date.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/CompanyRedemptions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - user
+          explode: false
+          style: form
+          description: Return each users' expanded data
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - gift_card_redemptions
+              - swag_redemptions
+              - amazon_us
+              - amazon_uk
+              - amazon_ca
+          description: Sorts output by specified value in descending order.
+        - name: start-date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: |-
+            Start Date of range to get data from as defined by RFC 3339,
+            section 5.6, for example, 2017-07-21.
+        - name: end-date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: |-
+            End Date of range to get data from as defined by RFC 3339,
+            section 5.6, for example, 2017-07-21.
+            If defined, start-date is required.
+  /v1/custom-awards:
+    get:
+      summary: Gets custom awards
+      description: Returns a page (default 25) of custom awards
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: The page number
+          schema:
+            type: number
+            default: 1
+        - name: automationEnabled
+          in: query
+          description: Only fetch awards that are enabled for automation
+          schema:
+            type: boolean
+            default: false
+        - name: allTime
+          in: query
+          description: >-
+            Gets all time data with no pagination. Only keys with the
+            `INTEGRATION` scope can use this.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/CustomAwardsResponse'
+                  - $ref: '#/components/schemas/PageInfo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+  /v1/custom-awards/send:
+    post:
+      summary: Sends a custom award to recipients
+      description: |
+        Sends a custom award to one or more recipients within the company.
+        Awards can include optional messages and point values. All recipients
+        must be valid user UUIDs within the organization.
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: >-
+          The request body requires `awardUuid` and either `recipientUuids` or
+          `recipientEmails` to be provided, but not both.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomAwardsBody'
+      responses:
+        '200':
+          description: Custom award sent successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+  /v1/flows/trigger/{triggerId}:
+    post:
+      summary: Trigger a Flow for specified users
+      description: |
+        Enrolls users in a Flow via an API trigger. Users can be identified
+        by email or userId. All specified users must be valid members of the
+        company associated with the API key. If any users are not found, the
+        request will fail without enrolling any users.
+      tags:
+        - Flows
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: triggerId
+          in: path
+          required: true
+          description: The ID of the API trigger to invoke
+          schema:
+            type: string
+      requestBody:
+        description: |
+          Provide either `emails` or `userIds` (not both).
+          The trigger must be a PAPI or INTEGRATION trigger type. INTEGRATION
+          triggers require an API key with the INTEGRATION permission.
+          The Flow is resolved automatically from the trigger.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowsTriggerBody'
+      responses:
+        '200':
+          description: Users enrolled successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/FlowsTriggerResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+  /health:
+    get:
+      summary: Health
+      security: []
+      responses:
+        '200':
+          description: OK
+  /v1/recognition/feed:
+    get:
+      summary: Gets the companies recognition feed
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/ShoutoutsResponse'
+            text/csv:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - nomination_post
+                - nomination_response
+                - birthday
+                - anniversary
+                - award
+                - challenge
+                - welcome
+                - setup
+                - shoutout
+          explode: false
+          style: form
+          description: Type of post
+        - name: private
+          in: query
+          schema:
+            type: boolean
+        - name: hidden_from_leaderboard
+          in: query
+          schema:
+            type: boolean
+        - name: deleted
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: minify
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Get only minified user data. Only for 'text/csv' format
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - user
+          explode: false
+          style: form
+          description: Return each users' expanded data
+        - name: cursor
+          in: query
+          schema:
+            type: number
+          description: Unix timestamp for next date range of feed entries
+        - name: start-date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: |-
+            Start Date of range to get data from as defined by RFC 3339,
+            section 5.6, for example, 2017-07-21.
+        - name: end-date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: |-
+            End Date of range to get data from as defined by RFC 3339,
+            section 5.6, for example, 2017-07-21.
+            If defined, start-date is required.
+        - name: all_time
+          in: query
+          schema:
+            type: boolean
+          description: >-
+            Gets all time data with no pagination. Only keys with the
+            `AI_INSIGHT` scope can use this.
+  /v1/users/{userId}:
+    get:
+      summary: Gets general information about a specific user
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/UserDetailsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - user
+          explode: false
+          style: form
+          description: Return each users' expanded data
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The id of the user to fetch data for
+  /v1/users:
+    get:
+      summary: Gets a paginated list of users within the company
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/UsersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - user
+          explode: false
+          style: form
+          description: Return each users' expanded data
+        - name: active
+          in: query
+          schema:
+            type: boolean
+        - name: invited
+          in: query
+          schema:
+            type: boolean
+        - name: email
+          in: query
+          schema:
+            type: string
+        - name: employee_id
+          in: query
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: number
+    put:
+      summary: >-
+        Upsert up to 50 users at a time based on nectar_id (recommended), email,
+        or employee_id
+      description: >
+        Creates or updates users. Supports inviting users via the `user_invited`
+        field and `send_invites` query parameter.
+
+
+        **Invite behavior:**
+
+        - Setting `user_invited: true` on a user in the request body will mark
+        that user as invited in the database.
+
+        - Invite emails are **only sent** when `send_invites=true` is passed as
+        a query parameter.
+
+        - When `send_invites=true`, invite emails are sent to all users that
+        have `user_invited: true` **in the current request body**,
+          including users that were already invited previously.
+
+        - When `send_invites=false` or omitted, `user_invited: true` still
+        updates the database, but no emails are sent.
+
+        - `user_invited` can only be set to `true`. Setting it to `false` is not
+        allowed and will return an error.
+
+        - The response includes an `invite_email_sent` field for each user
+        indicating whether an invite email was sent during this request.
+
+
+        **Duplicate identifiers:**
+
+        - When multiple users in the request share the same `email`,
+        `employee_id`, or `phone_number`, the request still returns 200
+          but the response `warnings` array describes which duplicates were detected and how they were handled.
+
+        - Duplicate `email` or `employee_id`: all users sharing that value are
+        skipped (not created or updated).
+
+        - Duplicate `phone_number`: if the user has another identifier (email,
+        employee_id, nectar_id), the phone number is stripped
+          and the user is still processed; otherwise the user is skipped.
+
+        - Callers should inspect `warnings` after every upsert to reconcile
+        their source data.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessfulResponse'
+                  - $ref: '#/components/schemas/UsersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - user
+          explode: false
+          style: form
+          description: Returns the created/updated users base or expanded data
+        - name: lookup_keys
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - nectar_id
+                - email
+                - employee_id
+          explode: false
+          style: form
+          description: >-
+            The keys to use to lookup users. If none are provided, defaults to
+            the behavior below.
+        - name: send_invites
+          in: query
+          schema:
+            type: boolean
+          description: >
+            When set to `true`, invite emails will be sent to all users with
+            `user_invited: true` in the request body, including users that were
+            already invited previously. When set to `false` or omitted,
+            `user_invited: true` will still update the user in the database but
+            no invite emails will be sent.
+      requestBody:
+        description: >-
+          Specifying `nectar_id` allows a request to update both `employee_id`
+          and `email` in the same request. If `nectar_id` is not provided,
+          matches on `employee_id`, then `email`, if neither are found, creates
+          a new user.<br /><br />Passing `null` for a custom property will
+          remove the user from that property.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpsertRequestBody'
+tags: []

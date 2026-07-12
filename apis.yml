@@ -119,6 +119,14 @@ apis:
     user is not found the request fails without enrolling anyone, giving
     all-or-nothing automation of onboarding and engagement journeys.
 common:
+- type: TrustCenter
+  url: security/nectar-hr-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/nectar-hr-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/nectar-hr-domain-security.yml
+- type: Authentication
+  url: authentication/nectar-hr-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/nectarhr
 - type: Website

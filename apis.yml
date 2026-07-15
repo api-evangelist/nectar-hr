@@ -119,6 +119,8 @@ apis:
     user is not found the request fails without enrolling anyone, giving
     all-or-nothing automation of onboarding and engagement journeys.
 common:
+- type: AgenticAccess
+  url: agentic-access/nectar-hr-agentic-access.yml
 - type: TrustCenter
   url: security/nectar-hr-trust-center.yml
 - type: VulnerabilityDisclosure

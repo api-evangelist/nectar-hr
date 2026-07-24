@@ -1,0 +1,387 @@
+openapi: 3.0.0
+info:
+  title: Nectar Public Analytics API
+  version: 0.1.0
+  description: 'Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into
+
+    your automated systems/tools.
+
+
+    After requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.
+
+
+    You can access the [Swagger Definition here](/swagger.yaml).
+
+
+    ### Authentication
+
+
+    All endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`
+
+    '
+  contact:
+    name: Nectar Support
+    url: https://nectarhr.com/contact-us
+servers:
+- url: https://api.nectarhr.com
+  description: Nectar API Documentation
+security:
+- BearerAuth: []
+tags:
+- name: Analytics
+paths:
+  /v1/analytics/financial/redemptions:
+    get:
+      summary: Generates a summary of redemptions made by all users.
+      description: "Date rules:\n<ul>\n  <li>If you do not specify a start or end date, it will generate a report of the first of the current month to present.</li>\n  <li>If you specify a start date and an end date, they cannot span more than a year.</li>\n  <li>If you specify a start date without an end date, it will fetch either a month from start date, or the current day. Whichever is less.</li>\n  <li>If you specify an end date without a start date, it will error.</li>\n</ul>\nAll requests will include the applied start and end date."
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/SuccessfulResponse'
+                - $ref: '#/components/schemas/CompanyRedemptions'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+      parameters:
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - user
+        explode: false
+        style: form
+        description: Return each users' expanded data
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - gift_card_redemptions
+          - swag_redemptions
+          - amazon_us
+          - amazon_uk
+          - amazon_ca
+        description: Sorts output by specified value in descending order.
+      - name: start-date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: 'Start Date of range to get data from as defined by RFC 3339,
+
+          section 5.6, for example, 2017-07-21.'
+      - name: end-date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: 'End Date of range to get data from as defined by RFC 3339,
+
+          section 5.6, for example, 2017-07-21.
+
+          If defined, start-date is required.'
+      tags:
+      - Analytics
+components:
+  responses:
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    InternalServerError:
+      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+  schemas:
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    BaseUser:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+            format: email
+          employee_id:
+            type: string
+            nullable: true
+          first_name:
+            type: string
+          last_name:
+            type: string
+          username:
+            type: string
+          phone_number:
+            type: string
+            example: 123-456-7890
+            nullable: true
+          department:
+            type: string
+            nullable: true
+          office_location:
+            type: string
+            nullable: true
+          job_title:
+            type: string
+            nullable: true
+          language:
+            type: string
+            nullable: true
+          active:
+            type: boolean
+          invite_email_sent:
+            type: boolean
+            description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
+      - $ref: '#/components/schemas/Links'
+    ExpandedUser:
+      allOf:
+      - $ref: '#/components/schemas/BaseUser'
+      - type: object
+        properties:
+          user_role:
+            type: string
+            enum:
+            - Administrator
+            - Manager
+            - Employee
+          preferred_name:
+            type: string
+            nullable: true
+          birth_date:
+            type: string
+            nullable: true
+          hire_date:
+            type: string
+            format: date
+            nullable: true
+          inactive_date:
+            type: string
+            format: date
+            nullable: true
+          user_invited:
+            type: boolean
+          user_onboarded:
+            type: boolean
+          manager_email:
+            type: string
+            format: email
+            nullable: true
+          workspaces:
+            type: array
+            items:
+              type: string
+          giveable_points:
+            type: number
+          redeemable_points:
+            type: number
+          logged_in_once:
+            type: boolean
+          custom_properties:
+            type: object
+            additionalProperties: true
+            example:
+              custom_property_1: string
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
+    CompanyRedemptions:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            meta:
+              type: object
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                endDate:
+                  type: string
+                  format: date
+                total:
+                  type: string
+            financialRedemptionReport:
+              type: array
+              items:
+                type: object
+                properties:
+                  gift_card_redemptions:
+                    type: string
+                  swag_redemptions:
+                    type: string
+                  amazon_redemptions:
+                    type: object
+                    properties:
+                      US:
+                        type: string
+                      UK:
+                        type: string
+                      CA:
+                        type: string
+                  user:
+                    anyOf:
+                    - $ref: '#/components/schemas/BaseUser'
+                    - $ref: '#/components/schemas/ExpandedUser'
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

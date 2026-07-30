@@ -12,7 +12,20 @@ description: Nectar is an employee recognition and rewards platform that helps
   add-on - access is enabled by Nectar support/your account manager and then a
   scoped API key is generated in Settings > Integrations; all endpoints use
   Bearer (JWT) authentication.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nectar-hr.png
 tags:
 - Employee Recognition
 - Rewards
@@ -25,99 +38,90 @@ created: '2026-07-10'
 modified: '2026-07-10'
 specificationVersion: '0.19'
 apis:
-- aid: nectar-hr:nectar-hr-users-api
-  name: Nectar Users API
-  tags:
-  - Users
-  - People
-  - Provisioning
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: nectar-hr:nectar-hr-analytics-api
+  name: Nectar Analytics API
+  description: The Analytics API from Nectar — 1 operation(s) for analytics.
   humanURL: https://api.nectarhr.com/docs
   baseURL: https://api.nectarhr.com
-  properties:
-  - url: https://help.nectarhr.com/en/articles/10770969-open-api
-    type: Documentation
-  - url: https://api.nectarhr.com/docs
-    type: APIReference
-  - url: openapi/nectar-hr-openapi.yml
-    type: OpenAPI
-  description: Read and manage the people in a Nectar company. List users with
-    filters (active, invited, email, employee_id) via cursor pagination, get a
-    single user by ID, and upsert up to 50 users at a time (matched on
-    nectar_id, email, or employee_id) with optional invite sending. Backs HRIS
-    sync and user provisioning workflows.
-- aid: nectar-hr:nectar-hr-recognition-api
-  name: Nectar Recognition API
-  tags:
-  - Recognition
-  - Feed
-  - Engagement
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://api.nectarhr.com/docs
-  baseURL: https://api.nectarhr.com
-  properties:
-  - url: https://api.nectarhr.com/docs
-    type: APIReference
-  - url: openapi/nectar-hr-openapi.yml
-    type: OpenAPI
-  description: Read the company recognition feed - the stream of peer-to-peer and
-    manager recognitions posted in Nectar. Supports filtering by type, private,
-    leaderboard visibility, and deleted state, plus date-range and cursor-based
-    pagination for exporting recognition activity into analytics or reporting.
-- aid: nectar-hr:nectar-hr-custom-awards-api
-  name: Nectar Custom Awards API
-  tags:
-  - Awards
-  - Rewards
-  - Points
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://api.nectarhr.com/docs
-  baseURL: https://api.nectarhr.com
-  properties:
-  - url: https://api.nectarhr.com/docs
-    type: APIReference
-  - url: openapi/nectar-hr-openapi.yml
-    type: OpenAPI
-  description: List a company's configured custom awards and programmatically
-    send a custom award to one or more recipients (valid user UUIDs), with an
-    optional message and point value. Enables automated, points-based
-    recognition and rewards from external systems.
-- aid: nectar-hr:nectar-hr-financial-analytics-api
-  name: Nectar Financial Analytics API
   tags:
   - Analytics
-  - Redemptions
-  - FinOps
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/nectar-hr-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
+- aid: nectar-hr:nectar-hr-custom-awards-api
+  name: Nectar Custom Awards API
+  description: The Custom Awards API from Nectar — 2 operation(s) for custom awards.
   humanURL: https://api.nectarhr.com/docs
   baseURL: https://api.nectarhr.com
+  tags:
+  - Custom Awards
   properties:
-  - url: https://api.nectarhr.com/docs
-    type: APIReference
-  - url: openapi/nectar-hr-openapi.yml
-    type: OpenAPI
-  description: Generate a summary of reward redemptions made by all users over a
-    date range (defaulting to the current month to date, capped at a one-year
-    span). Powers financial reporting and reconciliation of points-to-rewards
-    spend from the Nectar rewards catalog.
+  - type: OpenAPI
+    url: openapi/nectar-hr-custom-awards-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
 - aid: nectar-hr:nectar-hr-flows-api
   name: Nectar Flows API
-  tags:
-  - Flows
-  - Automation
-  - Enrollment
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: The Flows API from Nectar — 1 operation(s) for flows.
   humanURL: https://api.nectarhr.com/docs
   baseURL: https://api.nectarhr.com
+  tags:
+  - Flows
   properties:
-  - url: https://api.nectarhr.com/docs
-    type: APIReference
-  - url: openapi/nectar-hr-openapi.yml
-    type: OpenAPI
-  description: Enroll users in a Nectar Flow via an API trigger. Users are
-    identified by email or userId and must be valid company members; if any
-    user is not found the request fails without enrolling anyone, giving
-    all-or-nothing automation of onboarding and engagement journeys.
+  - type: OpenAPI
+    url: openapi/nectar-hr-flows-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
+- aid: nectar-hr:nectar-hr-health-api
+  name: Nectar Health API
+  description: The Health API from Nectar — 1 operation(s) for health.
+  humanURL: https://api.nectarhr.com/docs
+  baseURL: https://api.nectarhr.com
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/nectar-hr-health-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
+- aid: nectar-hr:nectar-hr-recognition-api
+  name: Nectar Recognition API
+  description: The Recognition API from Nectar — 1 operation(s) for recognition.
+  humanURL: https://api.nectarhr.com/docs
+  baseURL: https://api.nectarhr.com
+  tags:
+  - Recognition
+  properties:
+  - type: OpenAPI
+    url: openapi/nectar-hr-recognition-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
+- aid: nectar-hr:nectar-hr-users-api
+  name: Nectar Users API
+  description: The Users API from Nectar — 2 operation(s) for users.
+  humanURL: https://api.nectarhr.com/docs
+  baseURL: https://api.nectarhr.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/nectar-hr-users-api-openapi.yml
+  - type: Documentation
+    url: https://help.nectarhr.com/en/articles/10770969-open-api
+  - type: APIReference
+    url: https://api.nectarhr.com/docs
 common:
 - type: AgenticAccess
   url: agentic-access/nectar-hr-agentic-access.yml

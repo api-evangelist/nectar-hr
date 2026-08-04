@@ -1,0 +1,24 @@
+{
+  "provider": "nectar-hr",
+  "sources": [
+    "nectar-hr-analytics-api-openapi.yml",
+    "nectar-hr-custom-awards-api-openapi.yml",
+    "nectar-hr-flows-api-openapi.yml",
+    "nectar-hr-health-api-openapi.yml",
+    "nectar-hr-recognition-api-openapi.yml",
+    "nectar-hr-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "nectar-hr-analytics-api-openapi.yml",
+    "nectar-hr-custom-awards-api-openapi.yml",
+    "nectar-hr-flows-api-openapi.yml",
+    "nectar-hr-health-api-openapi.yml",
+    "nectar-hr-recognition-api-openapi.yml",
+    "nectar-hr-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

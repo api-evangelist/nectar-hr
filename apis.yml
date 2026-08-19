@@ -36,7 +36,7 @@ tags:
 - People Operations
 created: '2026-07-10'
 modified: '2026-07-10'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: nectar-hr:nectar-hr-analytics-api
   name: Nectar Analytics API

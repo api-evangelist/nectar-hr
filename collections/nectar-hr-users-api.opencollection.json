@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nectar Public Analytics Users API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets general information about a specific user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nectarhr.com/v1/users/:userId",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Return each users' expanded data"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the user to fetch data for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets general information about a specific user"
+        },
+        {
+          "info": {
+            "name": "Gets a paginated list of users within the company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nectarhr.com/v1/users",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Return each users' expanded data"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "invited",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "employee_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets a paginated list of users within the company"
+        },
+        {
+          "info": {
+            "name": "Upsert up to 50 users at a time based on nectar_id (recommended), email, or employee_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.nectarhr.com/v1/users",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Returns the created/updated users base or expanded data"
+              },
+              {
+                "name": "lookup_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to use to lookup users. If none are provided, defaults to the behavior below."
+              },
+              {
+                "name": "send_invites",
+                "value": "",
+                "type": "query",
+                "description": "When set to `true`, invite emails will be sent to all users with `user_invited: true` in the request body, including users that were already invited previously. When set to `false` or omitted, `user_invited: true` will still update the user in the database but no invite emails will be sent.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates or updates users. Supports inviting users via the `user_invited` field and `send_invites` query parameter.\n\n**Invite behavior:**\n- Setting `user_invited: true` on a user in the request body will mark that user as invited in the database.\n- Invite emails are **only sent** when `send_invites=true` is passed as a query parameter.\n- When `send_invites=true`, invite emails are sent to all users that have `user_invited: true` **in the current request body**,\n  including users that were already"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

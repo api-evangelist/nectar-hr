@@ -1,0 +1,604 @@
+{
+  "item": [
+    {
+      "id": "6a4fd54e-bc7b-4a1b-a5b3-f844f35e9b00",
+      "name": "Flows",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee4de70c-6297-40d0-85a3-4c6faf05dd2f",
+          "name": "Trigger a Flow for specified users",
+          "request": {
+            "name": "Trigger a Flow for specified users",
+            "description": {
+              "content": "Enrolls users in a Flow via an API trigger. Users can be identified\nby email or userId. All specified users must be valid members of the\ncompany associated with the API key. If any users are not found, the\nrequest will fail without enrolling any users.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "flows",
+                "trigger",
+                ":triggerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "triggerId",
+                  "description": "(Required) The ID of the API trigger to invoke"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "670e1dfe-ce9d-417a-a2f0-337480b3fa5e",
+              "name": "Users enrolled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"links\": {\n    \"self\": \"http://ICJorvMdUT.yleto3NxTo3OxogtSPNiqzJLtK.ud6VPpck2hVV-1\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"http://bhZiUeEDyBzbjAyUMTH.egegJYySpngl3SRcnFGEqpyFfElYlwg8\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"https://zkPmKYNVpbpq.yaybs0aRnaq2J3-pITVAmiYnE2+l33k4d\"\n      }\n    ]\n  },\n  \"data\": {\n    \"flowId\": \"string\",\n    \"triggerId\": \"string\",\n    \"enrolledCount\": 3711.6135900426693,\n    \"enrolledUserIds\": [\n      \"string\",\n      \"string\"\n    ],\n    \"skippedCount\": 9794.260050478944\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d68a7ace-3ac2-4b63-8f5a-4b42d9505aed",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6084e05b-1ee0-462e-8e22-860c3f157fff",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd44e3cc-8505-4f08-b772-38b3a39483d2",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71a12a95-09fb-467a-82ee-46060515589d",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5fbf619-c21d-4cdd-aede-67d24e72b007",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3e35773-d3f0-48a6-9e57-1be084fa3a07",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acc8bb8c-e0bf-4a12-b686-7333b3ea4227",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "flows",
+                    "trigger",
+                    ":triggerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "triggerId",
+                      "description": "(Required) The ID of the API trigger to invoke"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nectarhr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "719c9789-8c0b-42db-a612-03ef6681e5ec",
+    "name": "Nectar Public Analytics Flows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into\nyour automated systems/tools.\n\nAfter requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.\n\nYou can access the [Swagger Definition here](/swagger.yaml).\n\n### Authentication\n\nAll endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`\n\n\nContact Support:\n Name: Nectar Support",
+      "type": "text/plain"
+    }
+  }
+}

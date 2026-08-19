@@ -1,0 +1,616 @@
+{
+  "item": [
+    {
+      "id": "6ea9d54c-634d-4157-8700-db18c097d331",
+      "name": "Analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2499459-bc1d-49cb-8be1-ef51ecc10e29",
+          "name": "Generates a summary of redemptions made by all users.",
+          "request": {
+            "name": "Generates a summary of redemptions made by all users.",
+            "description": {
+              "content": "Date rules:\n<ul>\n  <li>If you do not specify a start or end date, it will generate a report of the first of the current month to present.</li>\n  <li>If you specify a start date and an end date, they cannot span more than a year.</li>\n  <li>If you specify a start date without an end date, it will fetch either a month from start date, or the current day. Whichever is less.</li>\n  <li>If you specify an end date without a start date, it will error.</li>\n</ul>\nAll requests will include the applied start and end date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "analytics",
+                "financial",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>,<string>",
+                  "description": "Return each users' expanded data"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sorts output by specified value in descending order."
+                },
+                {
+                  "disabled": false,
+                  "key": "start-date",
+                  "value": "<date>",
+                  "description": "Start Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21."
+                },
+                {
+                  "disabled": false,
+                  "key": "end-date",
+                  "value": "<date>",
+                  "description": "End Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21.\nIf defined, start-date is required."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c87ee86-a02c-49b5-8acd-a3aceb43ec3f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"links\": {\n    \"self\": \"https://OkOmNw.lsiEvTbEvzUBDNKwKyBlBdAg55jZMFoN-dctQRliUo3a7WvSR\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"https://XuTQpWuJyBTKdahkdjnMAjfOBbb.qrOzIlEY5QQijDnNYoSvtJ5kiSVPxlBUojFZYwbbl\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"https://hLBbImTshqwoxBGwOHEYQcFmGOAfd.ltgqdEo7WRtgY2a5fGILZbSgC7Geme7mtG3Z23A2+BpBdj9-+xzmNtw\"\n      }\n    ]\n  },\n  \"data\": {\n    \"meta\": {\n      \"startDate\": \"1973-02-28\",\n      \"endDate\": \"1993-09-03\",\n      \"total\": \"string\"\n    },\n    \"financialRedemptionReport\": [\n      {\n        \"gift_card_redemptions\": \"string\",\n        \"swag_redemptions\": \"string\",\n        \"amazon_redemptions\": {\n          \"US\": \"string\",\n          \"UK\": \"string\",\n          \"CA\": \"string\"\n        },\n        \"user\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"employee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"first_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"username\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"phone_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"department\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"office_location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"job_title\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"language\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"active\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"invite_email_sent\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"gift_card_redemptions\": \"string\",\n        \"swag_redemptions\": \"string\",\n        \"amazon_redemptions\": {\n          \"US\": \"string\",\n          \"UK\": \"string\",\n          \"CA\": \"string\"\n        },\n        \"user\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"email\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"employee_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"first_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"username\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"phone_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"department\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"office_location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"job_title\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"language\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"active\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"invite_email_sent\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0318c707-8ff2-4040-b240-792a296b48db",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08fcf450-50c5-44e8-a838-5e8846c30dfe",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f072914-818f-4143-96b3-ff1253bc0530",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c74c0b3-5642-40c9-be5b-acd56e9e51bf",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c2f2872-f04b-4438-8931-946eca4e474f",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c28a00f-2af1-4c80-a4b6-fb8e48cc06c5",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67f70b45-082d-47bf-bee5-331c7a665fc2",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "analytics",
+                    "financial",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start-date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end-date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nectarhr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ab4096e8-9c41-4ede-85ae-faf9c0a22afb",
+    "name": "Nectar Public Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into\nyour automated systems/tools.\n\nAfter requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.\n\nYou can access the [Swagger Definition here](/swagger.yaml).\n\n### Authentication\n\nAll endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`\n\n\nContact Support:\n Name: Nectar Support",
+      "type": "text/plain"
+    }
+  }
+}

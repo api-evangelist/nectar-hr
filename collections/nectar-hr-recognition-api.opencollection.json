@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nectar Public Analytics Recognition API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recognition",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets the companies recognition feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nectarhr.com/v1/recognition/feed",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of post"
+              },
+              {
+                "name": "private",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hidden_from_leaderboard",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "deleted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "minify",
+                "value": "",
+                "type": "query",
+                "description": "Get only minified user data. Only for 'text/csv' format"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Return each users' expanded data"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp for next date range of feed entries"
+              },
+              {
+                "name": "start-date",
+                "value": "",
+                "type": "query",
+                "description": "Start Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21."
+              },
+              {
+                "name": "end-date",
+                "value": "",
+                "type": "query",
+                "description": "End Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21.\nIf defined, start-date is required."
+              },
+              {
+                "name": "all_time",
+                "value": "",
+                "type": "query",
+                "description": "Gets all time data with no pagination. Only keys with the `AI_INSIGHT` scope can use this."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets the companies recognition feed"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

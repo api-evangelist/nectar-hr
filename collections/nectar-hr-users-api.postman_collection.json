@@ -1,0 +1,1820 @@
+{
+  "item": [
+    {
+      "id": "1b15c81d-ceb2-4e90-b404-65eb87e6ae88",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "19d09c7e-39c3-461a-a09c-3450fdbd433e",
+          "name": "Gets general information about a specific user",
+          "request": {
+            "name": "Gets general information about a specific user",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>,<string>",
+                  "description": "Return each users' expanded data"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The id of the user to fetch data for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90271ec7-e4d8-4795-b219-580dcdf661c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"links\": {\n    \"self\": \"https://wnPyecgyQIehfcEoKahWiHmLyfGXZI.rjtEJTa.AV3lY\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"https://xPY.fqkGYjjxDp\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"http://rIlApEfpLSKBduScjIE.ftvVHtmmQztEJ3fy1c-t,CpNNVdjMgx1B63PzaAmZ\"\n      }\n    ]\n  },\n  \"data\": {\n    \"user\": {\n      \"id\": \"string\",\n      \"email\": \"QfomfmOPjrmV@Hrqpv.qiwy\",\n      \"employee_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"username\": \"string\",\n      \"phone_number\": \"123-456-7890\",\n      \"department\": \"string\",\n      \"office_location\": \"string\",\n      \"job_title\": \"string\",\n      \"language\": \"string\",\n      \"active\": false,\n      \"invite_email_sent\": false,\n      \"self\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"related\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac8eae13-4ecf-40bd-832e-c6eced1d0c89",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "042d2a3a-10da-4041-8f9f-da8e315d9fb4",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b6c039e-3b36-4ceb-9050-989b6514df74",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "473ea633-8121-4c46-bf78-e16654fa8884",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7d14a42-f316-4cb8-9fe5-fe02a01aeb67",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "008df294-675c-4378-a95e-23d824d6f42f",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b91f6b6-3fe9-4dfc-ab16-79e49f2456b9",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The id of the user to fetch data for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3aec7a42-7579-4f77-b177-e198de98e8b1",
+          "name": "Gets a paginated list of users within the company",
+          "request": {
+            "name": "Gets a paginated list of users within the company",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>,<string>",
+                  "description": "Return each users' expanded data"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "invited",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "employee_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "03a56003-51a9-4d58-9db0-38de7ecb6878",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"links\": {\n    \"self\": \"https://HcRChTfbWQ.rkywqVDmaIpRIsa0tbKgLSE.EzNckrGv4Z5+itsTO-z8\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"http://NmgVhezombKqfATQxhcBkggVsMyJVNx.fvrPMBoB4kySmVHt0MeatLdF\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"https://GudxBWplQnxnRta.xiC91gbHv34Ez4eN\"\n      }\n    ]\n  },\n  \"data\": {\n    \"total\": 7249,\n    \"users\": [\n      {\n        \"id\": \"string\",\n        \"email\": \"mrKK@ZUsswDEvjofDWBMN.yduh\",\n        \"employee_id\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"username\": \"string\",\n        \"phone_number\": \"123-456-7890\",\n        \"department\": \"string\",\n        \"office_location\": \"string\",\n        \"job_title\": \"string\",\n        \"language\": \"string\",\n        \"active\": true,\n        \"invite_email_sent\": true,\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"related\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"id\": \"string\",\n        \"email\": \"qFrGrXqnWQtXFHL@xXUJiRFkAAQgbLwjz.fxpz\",\n        \"employee_id\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"username\": \"string\",\n        \"phone_number\": \"123-456-7890\",\n        \"department\": \"string\",\n        \"office_location\": \"string\",\n        \"job_title\": \"string\",\n        \"language\": \"string\",\n        \"active\": false,\n        \"invite_email_sent\": true,\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"related\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"warnings\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee15d938-194c-4874-84fd-b8099576b4b4",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93f77e11-a4fb-42fd-b338-11618be285ef",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71d4e6c5-3d17-4add-a21a-5526b7a0590f",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14991e0b-2f9e-414f-a6a2-f4f3e7f66094",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c5d755b-06f3-4083-94e7-b189cfd577f4",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc9b2a4f-bc46-4418-a551-29cb0ba0e249",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61284d37-6707-4d83-96a9-90f624271b56",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invited",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a833b8ec-15b7-4c33-947f-648916da203f",
+          "name": "Upsert up to 50 users at a time based on nectar_id (recommended), email, or employee_id",
+          "request": {
+            "name": "Upsert up to 50 users at a time based on nectar_id (recommended), email, or employee_id",
+            "description": {
+              "content": "Creates or updates users. Supports inviting users via the `user_invited` field and `send_invites` query parameter.\n\n**Invite behavior:**\n- Setting `user_invited: true` on a user in the request body will mark that user as invited in the database.\n- Invite emails are **only sent** when `send_invites=true` is passed as a query parameter.\n- When `send_invites=true`, invite emails are sent to all users that have `user_invited: true` **in the current request body**,\n  including users that were already invited previously.\n\n- When `send_invites=false` or omitted, `user_invited: true` still updates the database, but no emails are sent.\n- `user_invited` can only be set to `true`. Setting it to `false` is not allowed and will return an error.\n- The response includes an `invite_email_sent` field for each user indicating whether an invite email was sent during this request.\n\n**Duplicate identifiers:**\n- When multiple users in the request share the same `email`, `employee_id`, or `phone_number`, the request still returns 200\n  but the response `warnings` array describes which duplicates were detected and how they were handled.\n\n- Duplicate `email` or `employee_id`: all users sharing that value are skipped (not created or updated).\n- Duplicate `phone_number`: if the user has another identifier (email, employee_id, nectar_id), the phone number is stripped\n  and the user is still processed; otherwise the user is skipped.\n\n- Callers should inspect `warnings` after every upsert to reconcile their source data.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>,<string>",
+                  "description": "Returns the created/updated users base or expanded data"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookup_keys",
+                  "value": "<string>,<string>",
+                  "description": "The keys to use to lookup users. If none are provided, defaults to the behavior below."
+                },
+                {
+                  "disabled": false,
+                  "key": "send_invites",
+                  "value": "<boolean>",
+                  "description": "When set to `true`, invite emails will be sent to all users with `user_invited: true` in the request body, including users that were already invited previously. When set to `false` or omitted, `user_invited: true` will still update the user in the database but no invite emails will be sent.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"<string>\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"key_0\": true\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"<string>\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"key_0\": false,\n      \"key_1\": true\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3eafbbe-a8bd-475e-a6b7-6806d802ae5e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"links\": {\n    \"self\": \"https://DiTWjeNNimiFGVekNj.ctpdy\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"https://rlfvkzAQsIfxeLQndtJDRIOwwoKOPLq.gxsdknYHR,-SfHGDcOJd+KbtYC9PjZ4KQ9VpQMUYO1FD3ZR18d,yCGkdBPcQQ5sv\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"https://YWjnoaeqhZaH.uevaX703I2bXud95DkTejCr4Vrq8vKVpWl\"\n      }\n    ]\n  },\n  \"data\": {\n    \"total\": 7150,\n    \"users\": [\n      {\n        \"id\": \"string\",\n        \"email\": \"h7yxjAB94alk@hXzyTnhpADKYetEVeSxLYtb.oz\",\n        \"employee_id\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"username\": \"string\",\n        \"phone_number\": \"123-456-7890\",\n        \"department\": \"string\",\n        \"office_location\": \"string\",\n        \"job_title\": \"string\",\n        \"language\": \"string\",\n        \"active\": true,\n        \"invite_email_sent\": true,\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"related\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"id\": \"string\",\n        \"email\": \"s825-gvHP@oKJcQrZiqw.oocj\",\n        \"employee_id\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"username\": \"string\",\n        \"phone_number\": \"123-456-7890\",\n        \"department\": \"string\",\n        \"office_location\": \"string\",\n        \"job_title\": \"string\",\n        \"language\": \"string\",\n        \"active\": true,\n        \"invite_email_sent\": true,\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"related\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"warnings\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f448221-0835-4044-ba5b-31cd42be0517",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95434aac-c997-4551-8a02-1b64279070c7",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f4ed94a-54b1-4c36-81a6-32f536a4feb5",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75040418-4d9c-40ab-b209-c768085d7079",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc9a3040-62c9-4e02-b469-bbb964175758",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ced5ea35-9b3b-42e6-8576-d02b578f3241",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f421b59b-e27f-4320-846a-f233b89758ad",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "lookup_keys",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "send_invites",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  },\n  {\n    \"email\": \"<email>\",\n    \"nectar_id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"employee_id\": \"<string>\",\n    \"department\": \"<string>\",\n    \"office_location\": \"<string>\",\n    \"job_title\": \"<string>\",\n    \"active\": \"<boolean>\",\n    \"phone_number\": \"123-456-7890\",\n    \"inactive_date\": \"<date>\",\n    \"hire_date\": \"<date>\",\n    \"birth_date\": \"<date>\",\n    \"preferred_name\": \"<string>\",\n    \"manager_email\": \"<email>\",\n    \"language\": \"<string>\",\n    \"role\": \"<string>\",\n    \"custom_properties\": {\n      \"custom_property_1\": \"string\",\n      \"custom_property_2\": 1,\n      \"custom_property_3\": true,\n      \"custom_property_4\": null\n    },\n    \"user_invited\": \"<boolean>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nectarhr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3181fc2f-6476-4fed-aea4-45c535685156",
+    "name": "Nectar Public Analytics Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into\nyour automated systems/tools.\n\nAfter requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.\n\nYou can access the [Swagger Definition here](/swagger.yaml).\n\n### Authentication\n\nAll endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`\n\n\nContact Support:\n Name: Nectar Support",
+      "type": "text/plain"
+    }
+  }
+}

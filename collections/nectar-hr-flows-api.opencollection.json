@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nectar Public Analytics Flows API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger a Flow for specified users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nectarhr.com/v1/flows/trigger/:triggerId",
+            "params": [
+              {
+                "name": "triggerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the API trigger to invoke"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enrolls users in a Flow via an API trigger. Users can be identified\nby email or userId. All specified users must be valid members of the\ncompany associated with the API key. If any users are not found, the\nrequest will fail without enrolling any users.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

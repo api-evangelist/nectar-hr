@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nectar Public Analytics Custom Awards API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Awards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets custom awards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nectarhr.com/v1/custom-awards",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number"
+              },
+              {
+                "name": "automationEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Only fetch awards that are enabled for automation"
+              },
+              {
+                "name": "allTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets all time data with no pagination. Only keys with the `INTEGRATION` scope can use this."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a page (default 25) of custom awards"
+        },
+        {
+          "info": {
+            "name": "Sends a custom award to recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nectarhr.com/v1/custom-awards/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sends a custom award to one or more recipients within the company.\nAwards can include optional messages and point values. All recipients\nmust be valid user UUIDs within the organization.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

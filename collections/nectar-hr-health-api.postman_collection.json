@@ -1,0 +1,106 @@
+{
+  "item": [
+    {
+      "id": "dfc796dd-3422-4bc7-966b-587ee8638197",
+      "name": "Health",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eaf15b17-1711-4bb9-ba59-ca14370122f8",
+          "name": "Health",
+          "request": {
+            "name": "Health",
+            "description": {},
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efc2f25d-6a53-4d25-a6c0-d48d77700823",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nectarhr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1192c625-d7cb-46b9-ad6b-9c0683729071",
+    "name": "Nectar Public Analytics Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into\nyour automated systems/tools.\n\nAfter requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.\n\nYou can access the [Swagger Definition here](/swagger.yaml).\n\n### Authentication\n\nAll endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`\n\n\nContact Support:\n Name: Nectar Support",
+      "type": "text/plain"
+    }
+  }
+}

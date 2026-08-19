@@ -1,0 +1,1042 @@
+{
+  "item": [
+    {
+      "id": "1a7b1212-98d2-4be3-b5ef-2faca2c20248",
+      "name": "Custom Awards",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc0e3286-acfb-4a30-8f48-cab1e731b14c",
+          "name": "Gets custom awards",
+          "request": {
+            "name": "Gets custom awards",
+            "description": {
+              "content": "Returns a page (default 25) of custom awards",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "custom-awards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "automationEnabled",
+                  "value": "false",
+                  "description": "Only fetch awards that are enabled for automation"
+                },
+                {
+                  "disabled": false,
+                  "key": "allTime",
+                  "value": "false",
+                  "description": "Gets all time data with no pagination. Only keys with the `INTEGRATION` scope can use this."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f9ff7e1-5037-406e-9912-9eabe8e5ed35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"links\": {\n    \"self\": \"https://VvDrRJBCPWURCCSqx.yblojIuKdOwzK0pFGQWRnKLmQ\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"http://NHwdaccQbh.mqYndlsW23SNV\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"http://nCmgWrHJaBbYxKgX.eqaH2GMuwfRxJ0EqxlX3klVhOvuXy\"\n      }\n    ]\n  },\n  \"data\": {\n    \"awards\": [\n      {\n        \"uuid\": \"string\",\n        \"name\": \"string\",\n        \"points\": 7142.056255713484,\n        \"message\": \"string\",\n        \"fixed_points\": true\n      },\n      {\n        \"uuid\": \"string\",\n        \"name\": \"string\",\n        \"points\": 174.61729510841906,\n        \"message\": \"string\",\n        \"fixed_points\": true\n      }\n    ],\n    \"pageInfo\": {\n      \"page\": 4270.285575710548,\n      \"pageSize\": 9530.135998869458,\n      \"total\": 8551.276716481208\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86a6cb55-0990-469e-aa42-c497c3b3946f",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "783ab7aa-698a-443b-9f19-50f4723674bd",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33c3261e-618e-4f3f-856a-d2f8f2d32ca8",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c61f5ed2-2ea1-468e-9ec0-23dd397895bd",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dd816f7-5901-4f94-84b4-48bd0bc752f1",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bf4fe07-a98a-47a1-b21d-7352f577d40b",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f218047c-5634-41bd-a131-c4173ef7adc5",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "automationEnabled",
+                      "value": "false"
+                    },
+                    {
+                      "key": "allTime",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16af05b0-8b07-476c-8fc8-a54f82dfb022",
+          "name": "Sends a custom award to recipients",
+          "request": {
+            "name": "Sends a custom award to recipients",
+            "description": {
+              "content": "Sends a custom award to one or more recipients within the company.\nAwards can include optional messages and point values. All recipients\nmust be valid user UUIDs within the organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "custom-awards",
+                "send"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1290ced3-d45f-49e5-bdad-bbd26e1609b4",
+              "name": "Custom award sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"links\": {\n    \"self\": \"https://hhmDMQKXYrJql.yoxOV6Dw7esQZkC7aPldx8B88MS200af8bfbrxjSzhvyZNiRs7bhNq-2QZTvGxYL3kydTxt3BxnN\",\n    \"related\": [\n      {\n        \"type\": \"string\",\n        \"href\": \"http://GyVLTYRMHVZtPzZuGFxMvMr.skzDKeHcD\"\n      },\n      {\n        \"type\": \"string\",\n        \"href\": \"https://UXhKOzdHvLPOlccSkLxmc.rashuj\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "090bbacb-b880-44b1-aabe-c8e8d77facbd",
+              "name": "`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0003\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0af0f33-efaf-49c5-8311-18e065e5bb66",
+              "name": "`UNAUTHORIZED`: Request was sent with an expired or missing API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccf0ee8b-71f8-4981-bcb6-42d54717456c",
+              "name": "`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"UNAUTHORIZED\",\n    \"code\": \"N0002\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc3c85b5-0e39-4707-b197-5025a384bf78",
+              "name": "`NOT FOUND`: The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Not Found\",\n    \"code\": \"N0005\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa66b0b6-2a5e-4680-87f2-a683d43fb936",
+              "name": "`TOO MANY REQUESTS`: Company is being rate limited",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"TOO MANY REQUESTS\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2f35d7e-15cd-4d8c-93ab-8056468acaac",
+              "name": "`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0001\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68d73217-1190-420a-b2e8-7e4f15de77b4",
+              "name": "`NOT IMPLEMENTED`: Method is not implemented on that endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "custom-awards",
+                    "send"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"error\": {\n    \"message\": \"Bad Request\",\n    \"code\": \"N0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nectarhr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8c2813b7-e25d-4b65-8981-008da31779a8",
+    "name": "Nectar Public Analytics Custom Awards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into\nyour automated systems/tools.\n\nAfter requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.\n\nYou can access the [Swagger Definition here](/swagger.yaml).\n\n### Authentication\n\nAll endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`\n\n\nContact Support:\n Name: Nectar Support",
+      "type": "text/plain"
+    }
+  }
+}

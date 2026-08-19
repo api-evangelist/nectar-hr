@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nectar Public Analytics API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generates a summary of redemptions made by all users.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nectarhr.com/v1/analytics/financial/redemptions",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Return each users' expanded data"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorts output by specified value in descending order."
+              },
+              {
+                "name": "start-date",
+                "value": "",
+                "type": "query",
+                "description": "Start Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21."
+              },
+              {
+                "name": "end-date",
+                "value": "",
+                "type": "query",
+                "description": "End Date of range to get data from as defined by RFC 3339,\nsection 5.6, for example, 2017-07-21.\nIf defined, start-date is required."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Date rules:\n<ul>\n  <li>If you do not specify a start or end date, it will generate a report of the first of the current month to present.</li>\n  <li>If you specify a start date and an end date, they cannot span more than a year.</li>\n  <li>If you specify a start date without an end date, it will fetch either a month from start date, or the current day. Whichever is less.</li>\n  <li>If you specify an end date without a start date, it will error.</li>\n</ul>\nAll requests will include the applied st"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

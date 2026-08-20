@@ -114,6 +114,8 @@ apis:
   humanURL: https://api.nectarhr.com/docs
   baseURL: https://api.nectarhr.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI

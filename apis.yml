@@ -12,6 +12,18 @@ description: Nectar is an employee recognition and rewards platform that helps
   add-on - access is enabled by Nectar support/your account manager and then a
   scoped API key is generated in Settings > Integrations; all endpoints use
   Bearer (JWT) authentication.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve

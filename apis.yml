@@ -43,6 +43,14 @@ tags:
 - Employee Recognition
 - Rewards
 - Points
+- Human Resources
+- Employee Engagement
+- Culture
+- People Operations
+tags_raw:
+- Employee Recognition
+- Rewards
+- Points
 - HR
 - Employee Engagement
 - Culture
@@ -85,6 +93,8 @@ apis:
   humanURL: https://api.nectarhr.com/docs
   baseURL: https://api.nectarhr.com
   tags:
+  - Flow
+  tags_raw:
   - Flows
   properties:
   - type: OpenAPI

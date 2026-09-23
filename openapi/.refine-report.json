@@ -1,12 +1,7 @@
 {
   "provider": "nectar-hr",
   "sources": [
-    "nectar-hr-analytics-api-openapi.yml",
-    "nectar-hr-custom-awards-api-openapi.yml",
-    "nectar-hr-flows-api-openapi.yml",
-    "nectar-hr-health-api-openapi.yml",
-    "nectar-hr-recognition-api-openapi.yml",
-    "nectar-hr-users-api-openapi.yml"
+    "_original/nectar-hr-openapi.yml"
   ],
   "outputs": [
     "nectar-hr-analytics-api-openapi.yml",
@@ -19,6 +14,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "nectar-hr-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "nectar-hr-openapi.yml: tagged paths GET /v1/analytics/financial/redemptions -> Analytics",
+    "nectar-hr-openapi.yml: tagged paths GET /v1/custom-awards -> Custom Awards",
+    "nectar-hr-openapi.yml: tagged paths POST /v1/custom-awards/send -> Custom Awards",
+    "nectar-hr-openapi.yml: tagged paths GET /health -> Health",
+    "nectar-hr-openapi.yml: tagged paths GET /v1/recognition/feed -> Recognition",
+    "nectar-hr-openapi.yml: tagged paths GET /v1/users/{userId} -> Users",
+    "nectar-hr-openapi.yml: tagged paths GET /v1/users -> Users",
+    "nectar-hr-openapi.yml: tagged paths PUT /v1/users -> Users",
+    "nectar-hr-openapi.yml: declared missing tag: Analytics",
+    "nectar-hr-openapi.yml: declared missing tag: Custom Awards",
+    "nectar-hr-openapi.yml: declared missing tag: Flows",
+    "nectar-hr-openapi.yml: declared missing tag: Health",
+    "nectar-hr-openapi.yml: declared missing tag: Recognition",
+    "nectar-hr-openapi.yml: declared missing tag: Users",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "nectar-hr-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nectar-hr-custom-awards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nectar-hr-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nectar-hr-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nectar-hr-recognition-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nectar-hr-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

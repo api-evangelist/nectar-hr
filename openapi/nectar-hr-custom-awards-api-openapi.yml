@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Nectar Public Analytics Custom Awards API
+  title: Nectar Public Custom Awards API
   version: 0.1.0
   description: 'Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into
 
@@ -10,15 +10,13 @@ info:
     After requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.
 
 
-    You can access the [Swagger Definition here](/swagger.yaml).
+    You can access the Swagger Definition here.
 
 
     ### Authentication
 
 
-    All endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`
-
-    '
+    All endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer `'
   contact:
     name: Nectar Support
     url: https://nectarhr.com/contact-us
@@ -81,6 +79,8 @@ paths:
           $ref: '#/components/responses/NotImplemented'
       tags:
       - Custom Awards
+      operationId: getV1CustomAwards
+      x-operation-id-source: derived
   /v1/custom-awards/send:
     post:
       summary: Sends a custom award to recipients
@@ -88,9 +88,7 @@ paths:
 
         Awards can include optional messages and point values. All recipients
 
-        must be valid user UUIDs within the organization.
-
-        '
+        must be valid user UUIDs within the organization.'
       security:
       - BearerAuth: []
       requestBody:
@@ -124,10 +122,25 @@ paths:
           $ref: '#/components/responses/NotImplemented'
       tags:
       - Custom Awards
+      operationId: postV1CustomAwardsSend
+      x-operation-id-source: derived
 components:
   responses:
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
       content:
         application/json:
           schema:
@@ -138,9 +151,9 @@ components:
                 status: failure
                 error:
                   message: Bad Request
-                  code: N0000
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+                  code: N0003
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
       content:
         application/json:
           schema:
@@ -165,21 +178,8 @@ components:
                 error:
                   message: TOO MANY REQUESTS
                   code: N0000
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
       content:
         application/json:
           schema:
@@ -191,19 +191,6 @@ components:
                 error:
                   message: UNAUTHORIZED
                   code: N0002
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
     InternalServerError:
       description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
       content:
@@ -217,7 +204,115 @@ components:
                 error:
                   message: Bad Request
                   code: N0001
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
   schemas:
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
+    CustomAwardsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            awards:
+              type: array
+              items:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  name:
+                    type: string
+                  points:
+                    type:
+                    - number
+                    - 'null'
+                  message:
+                    type: string
+                  fixed_points:
+                    type: boolean
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    PageInfo:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            pageInfo:
+              type: object
+              properties:
+                page:
+                  type: number
+                pageSize:
+                  type: number
+                total:
+                  type: number
     CustomAwardsBody:
       type: object
       description: Request body for sending custom awards. Either `recipientUuids`, `recipientEmails`, or both must be provided.
@@ -248,100 +343,6 @@ components:
         - recipientEmails
       - required:
         - recipientUuids
-    Response:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-    FailedResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            default: failure
-          error:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: string
-                enum:
-                - N0001
-                - N0002
-                - N0003
-                - N1001
-                - N1002
-                - N1003
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
-    CustomAwardsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            awards:
-              type: array
-              items:
-                type: object
-                properties:
-                  uuid:
-                    type: string
-                  name:
-                    type: string
-                  points:
-                    type: number
-                    nullable: true
-                  message:
-                    type: string
-                  fixed_points:
-                    type: boolean
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
-    PageInfo:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            pageInfo:
-              type: object
-              properties:
-                page:
-                  type: number
-                pageSize:
-                  type: number
-                total:
-                  type: number
   securitySchemes:
     BearerAuth:
       type: http

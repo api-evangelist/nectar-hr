@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Nectar Public Analytics Users API
+  title: Nectar Public Users API
   version: 0.1.0
   description: 'Welcome to the Nectar Public API. Here you can view and test the provided endpoints before integrating them into
 
@@ -10,15 +10,13 @@ info:
     After requesting access to the API through support, you can generate your API key from the integrations tab in Nectar.
 
 
-    You can access the [Swagger Definition here](/swagger.yaml).
+    You can access the Swagger Definition here.
 
 
     ### Authentication
 
 
-    All endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer <yourAPIKey>`
-
-    '
+    All endpoints require an API Key. Be sure to set the `Authorization` header key to `Bearer `'
   contact:
     name: Nectar Support
     url: https://nectarhr.com/contact-us
@@ -78,6 +76,8 @@ paths:
         description: The id of the user to fetch data for
       tags:
       - Users
+      operationId: getV1UsersByUserId
+      x-operation-id-source: derived
   /v1/users:
     get:
       summary: Gets a paginated list of users within the company
@@ -144,9 +144,46 @@ paths:
           type: number
       tags:
       - Users
+      operationId: getV1Users
+      x-operation-id-source: derived
     put:
-      summary: Upsert up to 50 users at a time based on nectar_id (recommended), email, or employee_id
-      description: "Creates or updates users. Supports inviting users via the `user_invited` field and `send_invites` query parameter.\n\n**Invite behavior:**\n- Setting `user_invited: true` on a user in the request body will mark that user as invited in the database.\n- Invite emails are **only sent** when `send_invites=true` is passed as a query parameter.\n- When `send_invites=true`, invite emails are sent to all users that have `user_invited: true` **in the current request body**,\n  including users that were already invited previously.\n\n- When `send_invites=false` or omitted, `user_invited: true` still updates the database, but no emails are sent.\n- `user_invited` can only be set to `true`. Setting it to `false` is not allowed and will return an error.\n- The response includes an `invite_email_sent` field for each user indicating whether an invite email was sent during this request.\n\n**Duplicate identifiers:**\n- When multiple users in the request share the same `email`, `employee_id`, or `phone_number`, the request still returns 200\n  but the response `warnings` array describes which duplicates were detected and how they were handled.\n\n- Duplicate `email` or `employee_id`: all users sharing that value are skipped (not created or updated).\n- Duplicate `phone_number`: if the user has another identifier (email, employee_id, nectar_id), the phone number is stripped\n  and the user is still processed; otherwise the user is skipped.\n\n- Callers should inspect `warnings` after every upsert to reconcile their source data.\n"
+      summary: Upsert up to 50 users at a time based on nectar_id (recommended), email, or…
+      description: 'Creates or updates users. Supports inviting users via the `user_invited` field and `send_invites` query parameter.
+
+
+        **Invite behavior:**
+
+        - Setting `user_invited: true` on a user in the request body will mark that user as invited in the database.
+
+        - Invite emails are **only sent** when `send_invites=true` is passed as a query parameter.
+
+        - When `send_invites=true`, invite emails are sent to all users that have `user_invited: true` **in the current request body**,
+
+        including users that were already invited previously.
+
+
+        - When `send_invites=false` or omitted, `user_invited: true` still updates the database, but no emails are sent.
+
+        - `user_invited` can only be set to `true`. Setting it to `false` is not allowed and will return an error.
+
+        - The response includes an `invite_email_sent` field for each user indicating whether an invite email was sent during this request.
+
+
+        **Duplicate identifiers:**
+
+        - When multiple users in the request share the same `email`, `employee_id`, or `phone_number`, the request still returns 200
+
+        but the response `warnings` array describes which duplicates were detected and how they were handled.
+
+
+        - Duplicate `email` or `employee_id`: all users sharing that value are skipped (not created or updated).
+
+        - Duplicate `phone_number`: if the user has another identifier (email, employee_id, nectar_id), the phone number is stripped
+
+        and the user is still processed; otherwise the user is skipped.
+
+
+        - Callers should inspect `warnings` after every upsert to reconcile their source data.'
       security:
       - BearerAuth: []
       responses:
@@ -213,10 +250,295 @@ paths:
               $ref: '#/components/schemas/UserUpsertRequestBody'
       tags:
       - Users
+      operationId: putV1Users
+      x-operation-id-source: derived
 components:
+  schemas:
+    BaseUser:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+            format: email
+          employee_id:
+            type:
+            - string
+            - 'null'
+          first_name:
+            type: string
+          last_name:
+            type: string
+          username:
+            type: string
+          phone_number:
+            type:
+            - string
+            - 'null'
+            example: 123-456-7890
+          department:
+            type:
+            - string
+            - 'null'
+          office_location:
+            type:
+            - string
+            - 'null'
+          job_title:
+            type:
+            - string
+            - 'null'
+          language:
+            type:
+            - string
+            - 'null'
+          active:
+            type: boolean
+          invite_email_sent:
+            type: boolean
+            description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
+      - $ref: '#/components/schemas/Links'
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
+    UsersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            total:
+              type: integer
+            users:
+              type: array
+              items:
+                anyOf:
+                - $ref: '#/components/schemas/BaseUser'
+                - $ref: '#/components/schemas/ExpandedUser'
+            warnings:
+              type: array
+              description: Non-fatal issues detected while processing the request (e.g., duplicate email, employee_id, or phone_number values within the batch). The request still succeeds, but affected users may have been skipped or had fields stripped. Review these to reconcile your source data.
+              items:
+                type: string
+    UserUpsertRequestBody:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserUpsertBody'
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    UserDetailsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user:
+              allOf:
+              - anyOf:
+                - $ref: '#/components/schemas/BaseUser'
+                - $ref: '#/components/schemas/ExpandedUser'
+    ExpandedUser:
+      allOf:
+      - $ref: '#/components/schemas/BaseUser'
+      - type: object
+        properties:
+          user_role:
+            type: string
+            enum:
+            - Administrator
+            - Manager
+            - Employee
+          preferred_name:
+            type:
+            - string
+            - 'null'
+          birth_date:
+            type:
+            - string
+            - 'null'
+          hire_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          inactive_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          user_invited:
+            type: boolean
+          user_onboarded:
+            type: boolean
+          manager_email:
+            type:
+            - string
+            - 'null'
+            format: email
+          workspaces:
+            type: array
+            items:
+              type: string
+          giveable_points:
+            type: number
+          redeemable_points:
+            type: number
+          logged_in_once:
+            type: boolean
+          custom_properties:
+            type: object
+            additionalProperties: true
+            example:
+              custom_property_1: string
+    UserUpsertBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        nectar_id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        employee_id:
+          type: string
+        department:
+          type:
+          - string
+          - 'null'
+        office_location:
+          type:
+          - string
+          - 'null'
+        job_title:
+          type:
+          - string
+          - 'null'
+        active:
+          type: boolean
+        phone_number:
+          type:
+          - string
+          - 'null'
+          example: 123-456-7890
+        inactive_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        hire_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        birth_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        preferred_name:
+          type:
+          - string
+          - 'null'
+        manager_email:
+          type:
+          - string
+          - 'null'
+          format: email
+        language:
+          type:
+          - string
+          - 'null'
+        role:
+          type: string
+          enum:
+          - Administrator
+          - Manager
+          - Employee
+          description: 'Nectar platform permission role. This controls access permissions within Nectar, not the user''s company or HRIS role. Administrator: full admin access (also grants Manager permissions). Manager: receives a manager-level point allowance and can access analytics for direct reports. Employee: standard user with an employee-level point allowance. Warning: sending this field on an update will overwrite the user''s existing role. Omit this field to preserve the current role.'
+        custom_properties:
+          type: object
+          additionalProperties: true
+          example:
+            custom_property_1: string
+            custom_property_2: 1
+            custom_property_3: true
+            custom_property_4: null
+        user_invited:
+          type: boolean
+          description: Set to true to mark the user as invited. Can only be set to true (setting to false will return an error). When combined with the send_invites query parameter, an invite email will be sent to the user. Without send_invites, the user will be marked as invited in the database but no email will be sent.
   responses:
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
       content:
         application/json:
           schema:
@@ -227,9 +549,9 @@ components:
                 status: failure
                 error:
                   message: Bad Request
-                  code: N0000
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+                  code: N0003
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
       content:
         application/json:
           schema:
@@ -254,21 +576,8 @@ components:
                 error:
                   message: TOO MANY REQUESTS
                   code: N0000
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
       content:
         application/json:
           schema:
@@ -280,19 +589,6 @@ components:
                 error:
                   message: UNAUTHORIZED
                   code: N0002
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
     InternalServerError:
       description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
       content:
@@ -306,255 +602,19 @@ components:
                 error:
                   message: Bad Request
                   code: N0001
-  schemas:
-    UserUpsertRequestBody:
-      type: array
-      items:
-        $ref: '#/components/schemas/UserUpsertBody'
-    Response:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-    BaseUser:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          email:
-            type: string
-            format: email
-          employee_id:
-            type: string
-            nullable: true
-          first_name:
-            type: string
-          last_name:
-            type: string
-          username:
-            type: string
-          phone_number:
-            type: string
-            example: 123-456-7890
-            nullable: true
-          department:
-            type: string
-            nullable: true
-          office_location:
-            type: string
-            nullable: true
-          job_title:
-            type: string
-            nullable: true
-          language:
-            type: string
-            nullable: true
-          active:
-            type: boolean
-          invite_email_sent:
-            type: boolean
-            description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
-      - $ref: '#/components/schemas/Links'
-    UserDetailsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            user:
-              allOf:
-              - anyOf:
-                - $ref: '#/components/schemas/BaseUser'
-                - $ref: '#/components/schemas/ExpandedUser'
-    ExpandedUser:
-      allOf:
-      - $ref: '#/components/schemas/BaseUser'
-      - type: object
-        properties:
-          user_role:
-            type: string
-            enum:
-            - Administrator
-            - Manager
-            - Employee
-          preferred_name:
-            type: string
-            nullable: true
-          birth_date:
-            type: string
-            nullable: true
-          hire_date:
-            type: string
-            format: date
-            nullable: true
-          inactive_date:
-            type: string
-            format: date
-            nullable: true
-          user_invited:
-            type: boolean
-          user_onboarded:
-            type: boolean
-          manager_email:
-            type: string
-            format: email
-            nullable: true
-          workspaces:
-            type: array
-            items:
-              type: string
-          giveable_points:
-            type: number
-          redeemable_points:
-            type: number
-          logged_in_once:
-            type: boolean
-          custom_properties:
-            type: object
-            additionalProperties: true
-            example:
-              custom_property_1: string
-    FailedResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            default: failure
-          error:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: string
-                enum:
-                - N0001
-                - N0002
-                - N0003
-                - N1001
-                - N1002
-                - N1003
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
-    UserUpsertBody:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        nectar_id:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        employee_id:
-          type: string
-        department:
-          type: string
-          nullable: true
-        office_location:
-          type: string
-          nullable: true
-        job_title:
-          type: string
-          nullable: true
-        active:
-          type: boolean
-        phone_number:
-          type: string
-          example: 123-456-7890
-          nullable: true
-        inactive_date:
-          type: string
-          format: date
-          nullable: true
-        hire_date:
-          type: string
-          format: date
-          nullable: true
-        birth_date:
-          type: string
-          format: date
-          nullable: true
-        preferred_name:
-          type: string
-          nullable: true
-        manager_email:
-          type: string
-          format: email
-          nullable: true
-        language:
-          type: string
-          nullable: true
-        role:
-          type: string
-          enum:
-          - Administrator
-          - Manager
-          - Employee
-          description: 'Nectar platform permission role. This controls access permissions within Nectar, not the user''s company or HRIS role. Administrator: full admin access (also grants Manager permissions). Manager: receives a manager-level point allowance and can access analytics for direct reports. Employee: standard user with an employee-level point allowance. Warning: sending this field on an update will overwrite the user''s existing role. Omit this field to preserve the current role.'
-        custom_properties:
-          type: object
-          additionalProperties: true
-          example:
-            custom_property_1: string
-            custom_property_2: 1
-            custom_property_3: true
-            custom_property_4: null
-        user_invited:
-          type: boolean
-          description: Set to true to mark the user as invited. Can only be set to true (setting to false will return an error). When combined with the send_invites query parameter, an invite email will be sent to the user. Without send_invites, the user will be marked as invited in the database but no email will be sent.
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
-    UsersResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            total:
-              type: integer
-            users:
-              type: array
-              items:
-                anyOf:
-                - $ref: '#/components/schemas/BaseUser'
-                - $ref: '#/components/schemas/ExpandedUser'
-            warnings:
-              type: array
-              description: Non-fatal issues detected while processing the request (e.g., duplicate email, employee_id, or phone_number values within the batch). The request still succeeds, but affected users may have been skipped or had fields stripped. Review these to reconcile your source data.
-              items:
-                type: string
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
   securitySchemes:
     BearerAuth:
       type: http

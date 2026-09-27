@@ -143,6 +143,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
     BaseUser:
       allOf:
       - type: object
@@ -189,6 +219,111 @@ components:
             type: boolean
             description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
       - $ref: '#/components/schemas/Links'
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    ExpandedUser:
+      allOf:
+      - $ref: '#/components/schemas/BaseUser'
+      - type: object
+        properties:
+          user_role:
+            type: string
+            enum:
+            - Administrator
+            - Manager
+            - Employee
+          preferred_name:
+            type:
+            - string
+            - 'null'
+          birth_date:
+            type:
+            - string
+            - 'null'
+          hire_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          inactive_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          user_invited:
+            type: boolean
+          user_onboarded:
+            type: boolean
+          manager_email:
+            type:
+            - string
+            - 'null'
+            format: email
+          workspaces:
+            type: array
+            items:
+              type: string
+          giveable_points:
+            type: number
+          redeemable_points:
+            type: number
+          logged_in_once:
+            type: boolean
+          custom_properties:
+            type: object
+            additionalProperties: true
+            example:
+              custom_property_1: string
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    ShoutoutsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            meta:
+              type: object
+              properties:
+                total:
+                  type: integer
+                start_date:
+                  type: string
+                  format: date-time
+                end_date:
+                  type: string
+                  format: date-time
+                cursor:
+                  type:
+                  - number
+                  - 'null'
+            feed:
+              type: array
+              items:
+                $ref: '#/components/schemas/Shoutout'
     Shoutout:
       type: object
       properties:
@@ -290,155 +425,7 @@ components:
           - setup
           - shoutout
           - community_recognition
-    Response:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
-    FailedResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            default: failure
-          error:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: string
-                enum:
-                - N0001
-                - N0002
-                - N0003
-                - N1001
-                - N1002
-                - N1003
-    ShoutoutsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            meta:
-              type: object
-              properties:
-                total:
-                  type: integer
-                start_date:
-                  type: string
-                  format: date-time
-                end_date:
-                  type: string
-                  format: date-time
-                cursor:
-                  type:
-                  - number
-                  - 'null'
-            feed:
-              type: array
-              items:
-                $ref: '#/components/schemas/Shoutout'
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
-    ExpandedUser:
-      allOf:
-      - $ref: '#/components/schemas/BaseUser'
-      - type: object
-        properties:
-          user_role:
-            type: string
-            enum:
-            - Administrator
-            - Manager
-            - Employee
-          preferred_name:
-            type:
-            - string
-            - 'null'
-          birth_date:
-            type:
-            - string
-            - 'null'
-          hire_date:
-            type:
-            - string
-            - 'null'
-            format: date
-          inactive_date:
-            type:
-            - string
-            - 'null'
-            format: date
-          user_invited:
-            type: boolean
-          user_onboarded:
-            type: boolean
-          manager_email:
-            type:
-            - string
-            - 'null'
-            format: email
-          workspaces:
-            type: array
-            items:
-              type: string
-          giveable_points:
-            type: number
-          redeemable_points:
-            type: number
-          logged_in_once:
-            type: boolean
-          custom_properties:
-            type: object
-            additionalProperties: true
-            example:
-              custom_property_1: string
   responses:
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
     BadRequest:
       description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
       content:
@@ -465,19 +452,6 @@ components:
                 error:
                   message: UNAUTHORIZED
                   code: N0002
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
-                  code: N0000
     Forbidden:
       description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
       content:
@@ -491,6 +465,32 @@ components:
                 error:
                   message: UNAUTHORIZED
                   code: N0002
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
     InternalServerError:
       description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
       content:
@@ -504,8 +504,8 @@ components:
                 error:
                   message: Bad Request
                   code: N0001
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
       content:
         application/json:
           schema:
@@ -515,7 +515,7 @@ components:
               value:
                 status: failure
                 error:
-                  message: Bad Request
+                  message: TOO MANY REQUESTS
                   code: N0000
   securitySchemes:
     BearerAuth:

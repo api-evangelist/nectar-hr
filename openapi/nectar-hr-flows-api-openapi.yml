@@ -90,98 +90,6 @@ paths:
       operationId: postV1FlowsTriggerByTriggerId
       x-operation-id-source: derived
 components:
-  responses:
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
-                  code: N0000
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    InternalServerError:
-      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0001
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0000
   schemas:
     Response:
       type: object
@@ -191,17 +99,6 @@ components:
           enum:
           - success
           - failure
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
     FailedResponse:
       allOf:
       - $ref: '#/components/schemas/Response'
@@ -224,27 +121,6 @@ components:
                 - N1001
                 - N1002
                 - N1003
-    FlowsTriggerResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            flowId:
-              type: string
-            triggerId:
-              type: string
-            enrolledCount:
-              type: number
-              description: Number of users successfully enrolled in the flow
-            enrolledUserIds:
-              type: array
-              items:
-                type: string
-              description: UUIDs of users successfully enrolled
-            skippedCount:
-              type: number
-              description: Number of users skipped because they are already enrolled in this flow
     Links:
       type: object
       properties:
@@ -281,6 +157,130 @@ components:
         - emails
       - required:
         - userIds
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    FlowsTriggerResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            flowId:
+              type: string
+            triggerId:
+              type: string
+            enrolledCount:
+              type: number
+              description: Number of users successfully enrolled in the flow
+            enrolledUserIds:
+              type: array
+              items:
+                type: string
+              description: UUIDs of users successfully enrolled
+            skippedCount:
+              type: number
+              description: Number of users skipped because they are already enrolled in this flow
+  responses:
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    InternalServerError:
+      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
   securitySchemes:
     BearerAuth:
       type: http

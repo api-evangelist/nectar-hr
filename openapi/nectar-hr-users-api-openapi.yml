@@ -253,15 +253,160 @@ paths:
       operationId: putV1Users
       x-operation-id-source: derived
 components:
+  responses:
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    InternalServerError:
+      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
   schemas:
-    Response:
+    UserDetailsResponse:
       type: object
       properties:
-        status:
+        data:
+          type: object
+          properties:
+            user:
+              allOf:
+              - anyOf:
+                - $ref: '#/components/schemas/BaseUser'
+                - $ref: '#/components/schemas/ExpandedUser'
+    UserUpsertRequestBody:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserUpsertBody'
+    Links:
+      type: object
+      properties:
+        self:
           type: string
-          enum:
-          - success
-          - failure
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    UsersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            total:
+              type: integer
+            users:
+              type: array
+              items:
+                anyOf:
+                - $ref: '#/components/schemas/BaseUser'
+                - $ref: '#/components/schemas/ExpandedUser'
+            warnings:
+              type: array
+              description: Non-fatal issues detected while processing the request (e.g., duplicate email, employee_id, or phone_number values within the batch). The request still succeeds, but affected users may have been skipped or had fields stripped. Review these to reconcile your source data.
+              items:
+                type: string
     FailedResponse:
       allOf:
       - $ref: '#/components/schemas/Response'
@@ -284,147 +429,6 @@ components:
                 - N1001
                 - N1002
                 - N1003
-    BaseUser:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          email:
-            type: string
-            format: email
-          employee_id:
-            type:
-            - string
-            - 'null'
-          first_name:
-            type: string
-          last_name:
-            type: string
-          username:
-            type: string
-          phone_number:
-            type:
-            - string
-            - 'null'
-            example: 123-456-7890
-          department:
-            type:
-            - string
-            - 'null'
-          office_location:
-            type:
-            - string
-            - 'null'
-          job_title:
-            type:
-            - string
-            - 'null'
-          language:
-            type:
-            - string
-            - 'null'
-          active:
-            type: boolean
-          invite_email_sent:
-            type: boolean
-            description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
-      - $ref: '#/components/schemas/Links'
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
-    UserUpsertRequestBody:
-      type: array
-      items:
-        $ref: '#/components/schemas/UserUpsertBody'
-    ExpandedUser:
-      allOf:
-      - $ref: '#/components/schemas/BaseUser'
-      - type: object
-        properties:
-          user_role:
-            type: string
-            enum:
-            - Administrator
-            - Manager
-            - Employee
-          preferred_name:
-            type:
-            - string
-            - 'null'
-          birth_date:
-            type:
-            - string
-            - 'null'
-          hire_date:
-            type:
-            - string
-            - 'null'
-            format: date
-          inactive_date:
-            type:
-            - string
-            - 'null'
-            format: date
-          user_invited:
-            type: boolean
-          user_onboarded:
-            type: boolean
-          manager_email:
-            type:
-            - string
-            - 'null'
-            format: email
-          workspaces:
-            type: array
-            items:
-              type: string
-          giveable_points:
-            type: number
-          redeemable_points:
-            type: number
-          logged_in_once:
-            type: boolean
-          custom_properties:
-            type: object
-            additionalProperties: true
-            example:
-              custom_property_1: string
-    UserDetailsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            user:
-              allOf:
-              - anyOf:
-                - $ref: '#/components/schemas/BaseUser'
-                - $ref: '#/components/schemas/ExpandedUser'
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
     UserUpsertBody:
       type: object
       properties:
@@ -504,117 +508,113 @@ components:
         user_invited:
           type: boolean
           description: Set to true to mark the user as invited. Can only be set to true (setting to false will return an error). When combined with the send_invites query parameter, an invite email will be sent to the user. Without send_invites, the user will be marked as invited in the database but no email will be sent.
-    UsersResponse:
+    Response:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            total:
-              type: integer
-            users:
-              type: array
-              items:
-                anyOf:
-                - $ref: '#/components/schemas/BaseUser'
-                - $ref: '#/components/schemas/ExpandedUser'
-            warnings:
-              type: array
-              description: Non-fatal issues detected while processing the request (e.g., duplicate email, employee_id, or phone_number values within the batch). The request still succeeds, but affected users may have been skipped or had fields stripped. Review these to reconcile your source data.
-              items:
-                type: string
-  responses:
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0000
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    InternalServerError:
-      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0001
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
-                  code: N0000
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    BaseUser:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+            format: email
+          employee_id:
+            type:
+            - string
+            - 'null'
+          first_name:
+            type: string
+          last_name:
+            type: string
+          username:
+            type: string
+          phone_number:
+            type:
+            - string
+            - 'null'
+            example: 123-456-7890
+          department:
+            type:
+            - string
+            - 'null'
+          office_location:
+            type:
+            - string
+            - 'null'
+          job_title:
+            type:
+            - string
+            - 'null'
+          language:
+            type:
+            - string
+            - 'null'
+          active:
+            type: boolean
+          invite_email_sent:
+            type: boolean
+            description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
+      - $ref: '#/components/schemas/Links'
+    ExpandedUser:
+      allOf:
+      - $ref: '#/components/schemas/BaseUser'
+      - type: object
+        properties:
+          user_role:
+            type: string
+            enum:
+            - Administrator
+            - Manager
+            - Employee
+          preferred_name:
+            type:
+            - string
+            - 'null'
+          birth_date:
+            type:
+            - string
+            - 'null'
+          hire_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          inactive_date:
+            type:
+            - string
+            - 'null'
+            format: date
+          user_invited:
+            type: boolean
+          user_onboarded:
+            type: boolean
+          manager_email:
+            type:
+            - string
+            - 'null'
+            format: email
+          workspaces:
+            type: array
+            items:
+              type: string
+          giveable_points:
+            type: number
+          redeemable_points:
+            type: number
+          logged_in_once:
+            type: boolean
+          custom_properties:
+            type: object
+            additionalProperties: true
+            example:
+              custom_property_1: string
   securitySchemes:
     BearerAuth:
       type: http

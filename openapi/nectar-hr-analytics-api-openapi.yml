@@ -118,15 +118,165 @@ paths:
       operationId: getV1AnalyticsFinancialRedemptions
       x-operation-id-source: derived
 components:
+  responses:
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    InternalServerError:
+      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
   schemas:
-    Response:
+    Links:
       type: object
       properties:
-        status:
+        self:
           type: string
-          enum:
-          - success
-          - failure
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
+    CompanyRedemptions:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            meta:
+              type: object
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                endDate:
+                  type: string
+                  format: date
+                total:
+                  type: string
+            financialRedemptionReport:
+              type: array
+              items:
+                type: object
+                properties:
+                  gift_card_redemptions:
+                    type: string
+                  swag_redemptions:
+                    type: string
+                  amazon_redemptions:
+                    type: object
+                    properties:
+                      US:
+                        type: string
+                      UK:
+                        type: string
+                      CA:
+                        type: string
+                  user:
+                    anyOf:
+                    - $ref: '#/components/schemas/BaseUser'
+                    - $ref: '#/components/schemas/ExpandedUser'
     FailedResponse:
       allOf:
       - $ref: '#/components/schemas/Response'
@@ -149,6 +299,14 @@ components:
                 - N1001
                 - N1002
                 - N1003
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
     BaseUser:
       allOf:
       - type: object
@@ -195,22 +353,6 @@ components:
             type: boolean
             description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
       - $ref: '#/components/schemas/Links'
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
     ExpandedUser:
       allOf:
       - $ref: '#/components/schemas/BaseUser'
@@ -264,148 +406,6 @@ components:
             additionalProperties: true
             example:
               custom_property_1: string
-    CompanyRedemptions:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            meta:
-              type: object
-              properties:
-                startDate:
-                  type: string
-                  format: date
-                endDate:
-                  type: string
-                  format: date
-                total:
-                  type: string
-            financialRedemptionReport:
-              type: array
-              items:
-                type: object
-                properties:
-                  gift_card_redemptions:
-                    type: string
-                  swag_redemptions:
-                    type: string
-                  amazon_redemptions:
-                    type: object
-                    properties:
-                      US:
-                        type: string
-                      UK:
-                        type: string
-                      CA:
-                        type: string
-                  user:
-                    anyOf:
-                    - $ref: '#/components/schemas/BaseUser'
-                    - $ref: '#/components/schemas/ExpandedUser'
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
-  responses:
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0000
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    InternalServerError:
-      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0001
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
-                  code: N0000
   securitySchemes:
     BearerAuth:
       type: http

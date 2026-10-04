@@ -1,0 +1,24 @@
+slug: nectar-hr
+provider: Nectar
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Recognition
+  spec_file: nectar-hr-recognition-api-openapi.yml
+  capability_id: BC-300.60
+  capability_id_l1: BC-300
+  capability_name: Employee Experience Management
+  confidence: 0.72
+  evidence: GET /v1/recognition/feed "Gets the companies recognition feed" with schemas Shoutout, ShoutoutsResponse
+  reason: A company-wide peer recognition/shoutout feed is an employee engagement and internal-culture
+    mechanism, mapping to employee experience management within HCM.

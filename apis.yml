@@ -150,6 +150,9 @@ apis:
   - type: APIReference
     url: https://api.nectarhr.com/docs
 common:
+- type: CapabilityMap
+  url: capabilities/nectar-hr-capability-edges.yml
+  name: Nectar Business Capability Map
 - type: AgenticAccess
   url: agentic-access/nectar-hr-agentic-access.yml
 - type: TrustCenter

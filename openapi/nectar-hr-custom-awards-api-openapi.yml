@@ -125,122 +125,29 @@ paths:
       operationId: postV1CustomAwardsSend
       x-operation-id-source: derived
 components:
-  responses:
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0000
-    Forbidden:
-      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    InternalServerError:
-      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0001
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Bad Request
-                  code: N0003
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    NotFound:
-      description: '`NOT FOUND`: The requested resource was not found'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: Not Found
-                  code: N0005
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
-                  code: N0000
   schemas:
-    CustomAwardsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            awards:
-              type: array
-              items:
-                type: object
-                properties:
-                  uuid:
-                    type: string
-                  name:
-                    type: string
-                  points:
-                    type:
-                    - number
-                    - 'null'
-                  message:
-                    type: string
-                  fixed_points:
-                    type: boolean
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
     CustomAwardsBody:
       type: object
       description: Request body for sending custom awards. Either `recipientUuids`, `recipientEmails`, or both must be provided.
@@ -271,17 +178,6 @@ components:
         - recipientEmails
       - required:
         - recipientUuids
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
     Links:
       type: object
       properties:
@@ -298,28 +194,17 @@ components:
               href:
                 type: string
                 format: uri
-    FailedResponse:
+    SuccessfulResponse:
       allOf:
       - $ref: '#/components/schemas/Response'
       - type: object
         properties:
           status:
             type: string
-            default: failure
-          error:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: string
-                enum:
-                - N0001
-                - N0002
-                - N0003
-                - N1001
-                - N1002
-                - N1003
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
     Response:
       type: object
       properties:
@@ -328,6 +213,29 @@ components:
           enum:
           - success
           - failure
+    CustomAwardsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            awards:
+              type: array
+              items:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  name:
+                    type: string
+                  points:
+                    type:
+                    - number
+                    - 'null'
+                  message:
+                    type: string
+                  fixed_points:
+                    type: boolean
     PageInfo:
       type: object
       properties:
@@ -343,6 +251,98 @@ components:
                   type: number
                 total:
                   type: number
+  responses:
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
+    NotFound:
+      description: '`NOT FOUND`: The requested resource was not found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Not Found
+                  code: N0005
+    Forbidden:
+      description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: UNAUTHORIZED
+                  code: N0002
+    InternalServerError:
+      description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0001
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0000
   securitySchemes:
     BearerAuth:
       type: http

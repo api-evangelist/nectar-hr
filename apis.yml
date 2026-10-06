@@ -58,7 +58,7 @@ tags_raw:
 - People Operations
 - Loyalty & Incentives
 created: '2026-07-10'
-modified: '2026-07-10'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: nectar-hr:nectar-hr-analytics-api
@@ -150,6 +150,8 @@ apis:
   - type: APIReference
     url: https://api.nectarhr.com/docs
 common:
+- url: https://nectarhr.com/resources/blog
+  type: Blog
 - type: CapabilityMap
   url: capabilities/nectar-hr-capability-edges.yml
   name: Nectar Business Capability Map

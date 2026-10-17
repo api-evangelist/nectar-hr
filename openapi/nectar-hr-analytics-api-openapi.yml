@@ -119,6 +119,63 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    FailedResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: failure
+          error:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                enum:
+                - N0001
+                - N0002
+                - N0003
+                - N1001
+                - N1002
+                - N1003
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              href:
+                type: string
+                format: uri
+    Response:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+    SuccessfulResponse:
+      allOf:
+      - $ref: '#/components/schemas/Response'
+      - type: object
+        properties:
+          status:
+            type: string
+            enum:
+            - success
+          links:
+            $ref: '#/components/schemas/Links'
     BaseUser:
       allOf:
       - type: object
@@ -165,44 +222,6 @@ components:
             type: boolean
             description: Indicates whether an invite email was sent for this user during this request. Only present in PUT responses. Returns true when the send_invites query parameter is present and user_invited is true in the request body for this user.
       - $ref: '#/components/schemas/Links'
-    FailedResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            default: failure
-          error:
-            type: object
-            properties:
-              message:
-                type: string
-              code:
-                type: string
-                enum:
-                - N0001
-                - N0002
-                - N0003
-                - N1001
-                - N1002
-                - N1003
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              href:
-                type: string
-                format: uri
     ExpandedUser:
       allOf:
       - $ref: '#/components/schemas/BaseUser'
@@ -256,25 +275,6 @@ components:
             additionalProperties: true
             example:
               custom_property_1: string
-    SuccessfulResponse:
-      allOf:
-      - $ref: '#/components/schemas/Response'
-      - type: object
-        properties:
-          status:
-            type: string
-            enum:
-            - success
-          links:
-            $ref: '#/components/schemas/Links'
-    Response:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
     CompanyRedemptions:
       type: object
       properties:
@@ -315,8 +315,8 @@ components:
                     - $ref: '#/components/schemas/BaseUser'
                     - $ref: '#/components/schemas/ExpandedUser'
   responses:
-    BadRequest:
-      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+    NotImplemented:
+      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
       content:
         application/json:
           schema:
@@ -327,32 +327,6 @@ components:
                 status: failure
                 error:
                   message: Bad Request
-                  code: N0003
-    Unauthorized:
-      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: UNAUTHORIZED
-                  code: N0002
-    TooManyRequests:
-      description: '`TOO MANY REQUESTS`: Company is being rate limited'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FailedResponse'
-          examples:
-            body:
-              value:
-                status: failure
-                error:
-                  message: TOO MANY REQUESTS
                   code: N0000
     NotFound:
       description: '`NOT FOUND`: The requested resource was not found'
@@ -367,6 +341,19 @@ components:
                 error:
                   message: Not Found
                   code: N0005
+    TooManyRequests:
+      description: '`TOO MANY REQUESTS`: Company is being rate limited'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: TOO MANY REQUESTS
+                  code: N0000
     Forbidden:
       description: '`FORBIDDEN`: Request was authenticated but the resource requested is missing or not accessible with that key'
       content:
@@ -380,6 +367,19 @@ components:
                 error:
                   message: UNAUTHORIZED
                   code: N0002
+    BadRequest:
+      description: '`BAD REQUEST`: Body or Query Params are malformed (missing, extra, or invalid values)'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FailedResponse'
+          examples:
+            body:
+              value:
+                status: failure
+                error:
+                  message: Bad Request
+                  code: N0003
     InternalServerError:
       description: '`INTERNAL SERVER ERROR`: Request was unable to be processed due to a server error. Contact our support team.'
       content:
@@ -393,8 +393,8 @@ components:
                 error:
                   message: Bad Request
                   code: N0001
-    NotImplemented:
-      description: '`NOT IMPLEMENTED`: Method is not implemented on that endpoint.'
+    Unauthorized:
+      description: '`UNAUTHORIZED`: Request was sent with an expired or missing API Key'
       content:
         application/json:
           schema:
@@ -404,8 +404,8 @@ components:
               value:
                 status: failure
                 error:
-                  message: Bad Request
-                  code: N0000
+                  message: UNAUTHORIZED
+                  code: N0002
   securitySchemes:
     BearerAuth:
       type: http

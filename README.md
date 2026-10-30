@@ -1,4 +1,4 @@
-# Nectar (nectar-hr)
+# Nectar
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,97 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nectar is an employee recognition and rewards platform that helps organizations build culture through peer-to-peer and manager recognition, a points-based global rewards catalog (200+ gift cards, direct Amazon integration, branded swag, and custom company rewards), automated milestone celebrations for birthdays and work anniversaries, and internal communications.
+Nectar is an employee recognition and rewards platform that helps organizations build culture through peer-to-peer and manager recognition, a points-based global rewards catalog (gift cards, Amazon, swag, custom company rewards), automated milestone celebrations, and internal comms. Nectar exposes a documented Open API (base https://api.nectarhr.com, Swagger at /docs) covering users, the company recognition feed, custom awards, financial redemption analytics, and Flow triggers. The API is an account add-on - access is enabled by Nectar support/your account manager and then a scoped API key is generated in Settings > Integrations; all endpoints use Bearer (JWT) authentication.
 
-Nectar exposes a documented **Open API** — the "Nectar Public API" (OpenAPI 3.0.0, version 0.1.0) — with a base URL of `https://api.nectarhr.com`, Swagger UI at [`/docs`](https://api.nectarhr.com/docs), and the raw definition at `/swagger.yaml`. Every endpoint is authenticated with a Bearer (JWT) API key.
+**Areas:** Employee Recognition · Rewards · Points · Human Resources · Employee Engagement · Culture · People Operations · Loyalty & Incentives
 
-**Access is a plan-gated add-on.** The docs and OpenAPI definition are publicly viewable, but live access must be enabled on your Nectar plan by support / your account manager. Once enabled, an admin generates a single scoped API key (with an optional expiration) under **Settings > Integrations**. If the Integrations API section is not visible, API access is not included in the current plan.
+## Nectar on APIs.io
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/nectar-hr/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/nectar-hr/refs/heads/main/apis.yml)
+Everything profiled for Nectar is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nectar-hr/](https://apis.io/providers/nectar-hr/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Employee Recognition
-- Rewards
-- Points
-- HR
-- Employee Engagement
-- Culture
-- People Operations
+- [Nectar Analytics API](https://apis.io/apis/nectar-hr/nectar-hr-analytics-api/) — The Analytics API from Nectar — 1 operation(s) for analytics.
+- [Nectar Custom Awards API](https://apis.io/apis/nectar-hr/nectar-hr-custom-awards-api/) — The Custom Awards API from Nectar — 2 operation(s) for custom awards.
+- [Nectar Flows API](https://apis.io/apis/nectar-hr/nectar-hr-flows-api/) — The Flows API from Nectar — 1 operation(s) for flows.
+- [Nectar Health API](https://apis.io/apis/nectar-hr/nectar-hr-health-api/) — The Health API from Nectar — 1 operation(s) for health.
+- [Nectar Recognition API](https://apis.io/apis/nectar-hr/nectar-hr-recognition-api/) — The Recognition API from Nectar — 1 operation(s) for recognition.
+- [Nectar Users API](https://apis.io/apis/nectar-hr/nectar-hr-users-api/) — The Users API from Nectar — 2 operation(s) for users.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-10
-- **Modified:** 2026-07-10
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Nectar Users API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Read and manage the people in a Nectar company. List users with filters (active, invited, email, employee_id) via cursor pagination, get a single user by ID, and upsert up to 50 users at a time (matched on `nectar_id`, `email`, or `employee_id`) with optional invite sending. Backs HRIS sync and user provisioning.
+- [Nectar Hr Agentic Access](https://apis.io/agentic-access/nectar-hr/nectar-hr-agentic-access/)
 
-- **Human URL:** [https://api.nectarhr.com/docs](https://api.nectarhr.com/docs)
-- **Base URL:** `https://api.nectarhr.com`
-- Endpoints: `GET /v1/users`, `GET /v1/users/{userId}`, `PUT /v1/users`
+#### Collections (6)
 
-### Nectar Recognition API
+Postman and Open Collection request collections.
 
-Read the company recognition feed — the stream of peer-to-peer and manager recognitions posted in Nectar — with filtering by type, privacy, leaderboard visibility, and deleted state, plus date-range and cursor-based pagination.
+- [Nectar Public Analytics API](https://apis.io/collections/nectar-hr/open-nectar-hr-analytics-api/)
+- [Nectar Public Analytics Custom Awards API](https://apis.io/collections/nectar-hr/open-nectar-hr-custom-awards-api/)
+- [Nectar Public Analytics Flows API](https://apis.io/collections/nectar-hr/open-nectar-hr-flows-api/)
+- [Nectar Public Analytics Health API](https://apis.io/collections/nectar-hr/open-nectar-hr-health-api/)
+- [Nectar Public Analytics Recognition API](https://apis.io/collections/nectar-hr/open-nectar-hr-recognition-api/)
+- [Nectar Public Analytics Users API](https://apis.io/collections/nectar-hr/open-nectar-hr-users-api/)
 
-- **Human URL:** [https://api.nectarhr.com/docs](https://api.nectarhr.com/docs)
-- **Base URL:** `https://api.nectarhr.com`
-- Endpoints: `GET /v1/recognition/feed`
+#### Security (4)
 
-### Nectar Custom Awards API
+Authentication, trust centre, and vulnerability disclosure.
 
-List a company's configured custom awards and programmatically send a custom award to one or more recipients (valid user UUIDs), with an optional message and point value.
+- [Nectar Hr Authentication](https://apis.io/security/nectar-hr/nectar-hr-authentication/)
+- [Nectar Hr Domain Security](https://apis.io/security/nectar-hr/nectar-hr-domain-security/)
+- [Nectar Hr Trust Center](https://apis.io/security/nectar-hr/nectar-hr-trust-center/)
+- [Nectar Hr Vulnerability Disclosure](https://apis.io/security/nectar-hr/nectar-hr-vulnerability-disclosure/)
 
-- **Human URL:** [https://api.nectarhr.com/docs](https://api.nectarhr.com/docs)
-- **Base URL:** `https://api.nectarhr.com`
-- Endpoints: `GET /v1/custom-awards`, `POST /v1/custom-awards/send`
+#### Plans and pricing (1)
 
-### Nectar Financial Analytics API
+Published plans, tiers and prices.
 
-Generate a summary of reward redemptions made by all users over a date range (defaulting to the current month to date, capped at a one-year span). Powers financial reporting and reconciliation of points-to-rewards spend.
+- [Nectar Hr Plans Pricing](https://apis.io/plans/nectar-hr/nectar-hr-plans-pricing/)
 
-- **Human URL:** [https://api.nectarhr.com/docs](https://api.nectarhr.com/docs)
-- **Base URL:** `https://api.nectarhr.com`
-- Endpoints: `GET /v1/analytics/financial/redemptions`
+#### Rate limits (1)
 
-### Nectar Flows API
+Published request limits.
 
-Enroll users in a Nectar Flow via an API trigger. Users are identified by email or userId and must be valid company members; if any user is not found the request fails without enrolling anyone (all-or-nothing).
+- [Nectar Hr Rate Limits](https://apis.io/rate-limits/nectar-hr/nectar-hr-rate-limits/)
 
-- **Human URL:** [https://api.nectarhr.com/docs](https://api.nectarhr.com/docs)
-- **Base URL:** `https://api.nectarhr.com`
-- Endpoints: `POST /v1/flows/trigger/{triggerId}`
+#### FinOps (1)
 
-## Authentication
+What the API costs to run, by operation.
 
-All endpoints require an API key sent as an `Authorization: Bearer <yourAPIKey>` header (JWT). One scoped key is generated per account in Settings > Integrations after access is enabled by Nectar.
+- [Nectar Hr Finops](https://apis.io/finops/nectar-hr/nectar-hr-finops/)
 
-## Rate Limits
+## Where to find this API
 
-Nectar documents a ceiling of **50 concurrent calls** per account rather than a published per-minute request quota, plus per-endpoint caps (user upsert of 50 per request, custom-awards page default of 25, and a one-year maximum span on the redemptions report). See [`rate-limits/nectar-hr-rate-limits.yml`](rate-limits/nectar-hr-rate-limits.yml).
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Pricing
-
-Nectar's Recognize product is sold per employee per month (billed annually) with a published annual minimum. Third-party pricing pages report a Plus tier at roughly **$5/employee/month** and a Premium tier at roughly **$6/employee/month** (annual billing), plus custom Enterprise; Nectar's own pricing page is quote-based. The Open API is an add-on enabled on your plan, not a separately metered product. See [`plans/nectar-hr-plans-pricing.yml`](plans/nectar-hr-plans-pricing.yml).
-
-## WebSocket / Realtime
-
-No. Nectar does not publish a documented public WebSocket API. The Nectar Public API is request/response REST over HTTPS; there is no server-push (WebSocket or SSE) transport to model, so no AsyncAPI document was authored. See [`review.yml`](review.yml).
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/nectarhr)
 - [Website](https://nectarhr.com)
 - [Documentation](https://api.nectarhr.com/docs)
-- [Plans](plans/nectar-hr-plans-pricing.yml)
-- [Rate Limits](rate-limits/nectar-hr-rate-limits.yml)
-- [Fin Ops](finops/nectar-hr-finops.yml)
+- [Blog](https://nectarhr.com/resources/blog)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 49.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.5** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nectar-hr/](https://apis.io/providers/nectar-hr/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Nectar: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nectar-hr/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
